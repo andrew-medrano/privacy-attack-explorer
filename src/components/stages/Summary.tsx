@@ -71,16 +71,35 @@ const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Privacy-Utility Trade-off</h3>
           <div className="space-y-4">
-            <div className="h-[400px]">
-              <LineChart width={400} height={370} data={privacyData}>
+            <div className="h-[450px]">
+              <LineChart 
+                width={400} 
+                height={400} 
+                data={privacyData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 50 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
                   dataKey="epsilon" 
-                  label={{ value: 'Privacy Budget (ε)', position: 'insideBottom', offset: -5, dy: 10 }}
+                  label={{ 
+                    value: 'Privacy Budget (ε)', 
+                    position: 'bottom', 
+                    offset: 20 
+                  }}
                 />
-                <YAxis label={{ value: 'Score (%)', angle: -90, position: 'insideLeft' }} />
+                <YAxis 
+                  label={{ 
+                    value: 'Score (%)', 
+                    angle: -90, 
+                    position: 'insideLeft',
+                    offset: -5 
+                  }} 
+                />
                 <Tooltip />
-                <Legend verticalAlign="top" height={36} />
+                <Legend 
+                  verticalAlign="top" 
+                  height={36} 
+                />
                 <Line 
                   type="monotone" 
                   dataKey="accuracy" 
@@ -95,7 +114,7 @@ const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
                 />
               </LineChart>
             </div>
-            <p className="text-sm text-muted-foreground mt-8">
+            <p className="text-sm text-muted-foreground mt-10">
               This chart illustrates the fundamental trade-off in differential privacy: 
               as we increase the privacy budget (ε), we get better model accuracy but 
               weaker privacy guarantees. A smaller ε means stronger privacy but potentially 
