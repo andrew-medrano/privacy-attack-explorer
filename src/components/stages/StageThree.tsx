@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, BarChart, Bar } from 'recharts';
-import { Sliders, RefreshCcw } from 'lucide-react';
+import { Sliders, RefreshCcw, Shield } from 'lucide-react';
 
 interface StageThreeProps {
   onComplete: () => void;
@@ -89,13 +88,13 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
 
   return (
     <div className="w-full p-6">
-      <h2 className="text-2xl font-bold mb-4">Stage 3: Regularization Defense</h2>
+      <h2 className="text-2xl font-bold mb-4">Stage 3: Differential Privacy</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Model Settings</h3>
           <div className="space-y-6">
             <div>
-              <label className="text-sm font-medium mb-2 block">Regularization Strength</label>
+              <label className="text-sm font-medium mb-2 block">Privacy Budget (ε)</label>
               <Slider 
                 defaultValue={[0.2]} 
                 max={1} 
@@ -105,7 +104,7 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                 disabled={isModelTrained}
               />
               <span className="text-sm text-muted-foreground mt-1 block">
-                Strength = {regularization[0]} (higher values reduce overfitting)
+                ε = {regularization[0]} (smaller values provide stronger privacy)
               </span>
             </div>
             {isModelTrained && !showColorCoded && (
@@ -125,10 +124,10 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
             )}
             <div className="p-4 bg-secondary/10 rounded-lg">
               <div className="flex gap-2 items-start">
-                <Sliders className="w-4 h-4 mt-1" />
+                <Shield className="w-4 h-4 mt-1" />
                 <p className="text-sm text-muted-foreground">
-                  Regularization helps prevent overfitting by penalizing complex models, 
-                  making it harder to memorize individual training examples.
+                  Differential privacy adds controlled noise to protect individual privacy. 
+                  A smaller privacy budget (ε) means more noise and stronger privacy, but may reduce model accuracy.
                 </p>
               </div>
             </div>

@@ -4,7 +4,6 @@ import SimulatorLayout from '@/components/SimulatorLayout';
 import StageOne from '@/components/stages/StageOne';
 import StageTwo from '@/components/stages/StageTwo';
 import StageThree from '@/components/stages/StageThree';
-import StageFour from '@/components/stages/StageFour';
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -34,7 +33,6 @@ const Index = () => {
       {currentStage === 1 && <StageOne onComplete={() => handleStageComplete(1)} />}
       {currentStage === 2 && <StageTwo onComplete={() => handleStageComplete(2)} />}
       {currentStage === 3 && <StageThree onComplete={() => handleStageComplete(3)} />}
-      {currentStage === 4 && <StageFour onComplete={() => handleStageComplete(4)} />}
     </SimulatorLayout>
   );
 };
