@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -144,11 +145,11 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
               )}
               {showColorCoded && (
                 <>
-                  <Button variant="outline" onClick={handleReset}>
+                  <Button variant="destructive" onClick={handleReset}>
                     <RefreshCcw className="mr-2" />
-                    Reset
+                    Restart
                   </Button>
-                  <Button variant="secondary" onClick={onComplete}>
+                  <Button className="bg-green-500 hover:bg-green-600" onClick={onComplete}>
                     Next Stage
                   </Button>
                 </>
@@ -158,56 +159,60 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
         </Card>
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Confidence Distribution</h3>
-          <div className="h-[300px]">
+          <div className="h-auto flex flex-col">
             {results.length > 0 ? (
               <div className="space-y-4">
                 {!showColorCoded ? (
-                  <BarChart width={400} height={200} data={results}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="confidence" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="total" fill="#94a3b8" name="All Predictions" />
-                    <ReferenceLine
-                      x={`${Math.floor(threshold[0] / 5) * 5}-${Math.floor(threshold[0] / 5) * 5 + 4}`}
-                      stroke="red"
-                      strokeDasharray="3 3"
-                      label={{ value: `Threshold: ${threshold[0]}%`, position: 'top' }}
-                    />
-                  </BarChart>
-                ) : (
-                  <>
-                    <AreaChart width={400} height={200} data={results}>
+                  <div className="h-[300px]">
+                    <BarChart width={400} height={200} data={results}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="confidence" />
                       <YAxis />
                       <Tooltip />
-                      <Legend />
-                      <Area 
-                        type="monotone" 
-                        dataKey="training" 
-                        stroke="#ef4444" 
-                        fill="#ef4444" 
-                        fillOpacity={0.3}
-                        name="Training Data"
-                      />
-                      <Area 
-                        type="monotone" 
-                        dataKey="nonTraining" 
-                        stroke="#9b87f5" 
-                        fill="#9b87f5" 
-                        fillOpacity={0.3}
-                        name="Non-training Data"
-                      />
+                      <Bar dataKey="total" fill="#94a3b8" name="All Predictions" />
                       <ReferenceLine
                         x={`${Math.floor(threshold[0] / 5) * 5}-${Math.floor(threshold[0] / 5) * 5 + 4}`}
                         stroke="red"
                         strokeDasharray="3 3"
                         label={{ value: `Threshold: ${threshold[0]}%`, position: 'top' }}
                       />
-                    </AreaChart>
+                    </BarChart>
+                  </div>
+                ) : (
+                  <>
+                    <div className="h-[200px]">
+                      <AreaChart width={400} height={200} data={results}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="confidence" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Area 
+                          type="monotone" 
+                          dataKey="training" 
+                          stroke="#ef4444" 
+                          fill="#ef4444" 
+                          fillOpacity={0.3}
+                          name="Training Data"
+                        />
+                        <Area 
+                          type="monotone" 
+                          dataKey="nonTraining" 
+                          stroke="#9b87f5" 
+                          fill="#9b87f5" 
+                          fillOpacity={0.3}
+                          name="Non-training Data"
+                        />
+                        <ReferenceLine
+                          x={`${Math.floor(threshold[0] / 5) * 5}-${Math.floor(threshold[0] / 5) * 5 + 4}`}
+                          stroke="red"
+                          strokeDasharray="3 3"
+                          label={{ value: `Threshold: ${threshold[0]}%`, position: 'top' }}
+                        />
+                      </AreaChart>
+                    </div>
                     {calculateAccuracy() && (
-                      <Card className="p-4">
+                      <Card className="p-4 mt-4">
                         <h4 className="font-semibold mb-2">Attack Results</h4>
                         <p className="text-sm">
                           Accuracy: {calculateAccuracy()?.accuracy}%
@@ -227,7 +232,7 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                 )}
               </div>
             ) : (
-              <div className="h-full bg-secondary/10 rounded-lg flex items-center justify-center">
+              <div className="h-[300px] bg-secondary/10 rounded-lg flex items-center justify-center">
                 <p className="text-muted-foreground">Train the model to see distribution</p>
               </div>
             )}
