@@ -3,30 +3,42 @@ import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { Shield, RefreshCcw } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts';
+import { Sliders, RefreshCcw } from 'lucide-react';
 
 interface StageThreeProps {
   onComplete: () => void;
 }
 
-const generateKAnonymityResults = (k: number, features: number) => {
-  return Array.from({ length: features }, (_, i) => ({
-    feature: `F${i + 1}`,
-    rawAccuracy: 0.8 - (i * 0.05),
-    anonymizedAccuracy: Math.max(0.3, 0.8 - (i * 0.05) - (k * 0.05)),
-  }));
+const generateRegularizationResults = (regularization: number) => {
+  // Generate 100 data points with more overlap based on regularization
+  const baseAccuracyTraining = Math.max(0.65, 0.9 - (regularization * 0.4));
+  const baseAccuracyNonTraining = Math.min(0.85, 0.6 + (regularization * 0.25));
+  
+  const data = Array.from({ length: 20 }, (_, i) => {
+    const confidence = i * 5;
+    const trainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / (20 + regularization * 10), 2)));
+    const nonTrainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyNonTraining * 100) / (20 + regularization * 10), 2)));
+    
+    return {
+      confidence: `${confidence}-${confidence + 4}`,
+      training: trainingCount,
+      nonTraining: nonTrainingCount,
+    };
+  });
+
+  return data;
 };
 
 const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
-  const [k, setK] = useState([2]);
-  const [featureCount, setFeatureCount] = useState([5]);
+  const [regularization, setRegularization] = useState([0.2]);
+  const [threshold, setThreshold] = useState([70]);
   const [results, setResults] = useState<any[]>([]);
   const [attacked, setAttacked] = useState(false);
   const [attempts, setAttempts] = useState(0);
 
   const handleApplyDefense = () => {
-    const newResults = generateKAnonymityResults(k[0], featureCount[0]);
+    const newResults = generateRegularizationResults(regularization[0]);
     setResults(newResults);
     setAttacked(true);
     setAttempts(prev => prev + 1);
@@ -37,51 +49,75 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
     setResults([]);
   };
 
+  const calculateAccuracy = () => {
+    if (!results.length) return null;
+
+    const thresholdValue = threshold[0];
+    let truePositives = 0;
+    let totalPredictions = 0;
+
+    results.forEach(point => {
+      const confidenceMin = parseInt(point.confidence.split('-')[0]);
+      if (confidenceMin >= thresholdValue) {
+        truePositives += point.training;
+        totalPredictions += point.training + point.nonTraining;
+      }
+    });
+
+    return {
+      accuracy: ((truePositives / totalPredictions) * 100).toFixed(1),
+      truePositives,
+      totalPredictions
+    };
+  };
+
   return (
     <div className="w-full p-6">
-      <h2 className="text-2xl font-bold mb-4">Stage 3: K-Anonymity Defense</h2>
+      <h2 className="text-2xl font-bold mb-4">Stage 3: Regularization Defense</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Privacy Settings</h3>
+          <h3 className="text-lg font-semibold mb-4">Model Settings</h3>
           <div className="space-y-6">
             <div>
-              <label className="text-sm font-medium mb-2 block">K-Anonymity Level</label>
+              <label className="text-sm font-medium mb-2 block">Regularization Strength</label>
               <Slider 
-                defaultValue={[2]} 
-                max={10} 
-                step={1}
-                value={k}
-                onValueChange={setK}
+                defaultValue={[0.2]} 
+                max={1} 
+                step={0.1}
+                value={regularization}
+                onValueChange={setRegularization}
               />
               <span className="text-sm text-muted-foreground mt-1 block">
-                k = {k} (higher values provide stronger anonymity)
+                Strength = {regularization[0]} (higher values reduce overfitting)
               </span>
             </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Feature Count</label>
-              <Slider 
-                defaultValue={[5]} 
-                max={10} 
-                step={1}
-                value={featureCount}
-                onValueChange={setFeatureCount}
-              />
-              <span className="text-sm text-muted-foreground mt-1 block">
-                Testing with {featureCount} features
-              </span>
-            </div>
+            {attacked && (
+              <div>
+                <label className="text-sm font-medium mb-2 block">Confidence Threshold (%)</label>
+                <Slider 
+                  defaultValue={[70]} 
+                  max={100} 
+                  step={1}
+                  value={threshold}
+                  onValueChange={setThreshold}
+                />
+                <span className="text-sm text-muted-foreground mt-1 block">
+                  Classifying as training data when confidence ≥ {threshold[0]}%
+                </span>
+              </div>
+            )}
             <div className="p-4 bg-secondary/10 rounded-lg">
               <div className="flex gap-2 items-start">
-                <Shield className="w-4 h-4 mt-1" />
+                <Sliders className="w-4 h-4 mt-1" />
                 <p className="text-sm text-muted-foreground">
-                  K-anonymity ensures that each record is indistinguishable from at least k-1 other records. 
-                  Experiment with different k values to see how they affect attack success rates.
+                  Regularization helps prevent overfitting by penalizing complex models, 
+                  making it harder to memorize individual training examples.
                 </p>
               </div>
             </div>
             <div className="flex gap-2">
               <Button className="flex-1" onClick={handleApplyDefense}>
-                {attacked ? "Try Again" : "Apply K-Anonymity"}
+                {attacked ? "Try Again" : "Apply Regularization"}
               </Button>
               {attacked && (
                 <>
@@ -98,40 +134,62 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
           </div>
         </Card>
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Privacy-Utility Trade-off</h3>
-          <div className="h-64">
+          <h3 className="text-lg font-semibold mb-4">Confidence Distribution</h3>
+          <div className="h-[300px]">
             {results.length > 0 ? (
               <div className="space-y-4">
                 <AreaChart width={400} height={200} data={results}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="feature" />
+                  <XAxis dataKey="confidence" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
                   <Area 
                     type="monotone" 
-                    dataKey="rawAccuracy" 
+                    dataKey="training" 
                     stroke="#ef4444" 
                     fill="#ef4444" 
                     fillOpacity={0.3}
-                    name="Without Defense"
+                    name="Training Data"
                   />
                   <Area 
                     type="monotone" 
-                    dataKey="anonymizedAccuracy" 
+                    dataKey="nonTraining" 
                     stroke="#9b87f5" 
                     fill="#9b87f5" 
                     fillOpacity={0.3}
-                    name="With K-Anonymity"
+                    name="Non-training Data"
                   />
+                  {attacked && (
+                    <ReferenceLine
+                      x={`${Math.floor(threshold[0] / 5) * 5}-${Math.floor(threshold[0] / 5) * 5 + 4}`}
+                      stroke="red"
+                      strokeDasharray="3 3"
+                      label={{ value: `Threshold: ${threshold[0]}%`, position: 'top' }}
+                    />
+                  )}
                 </AreaChart>
-                <div className="text-sm text-muted-foreground">
-                  Defense applications: {attempts}
-                </div>
+                {calculateAccuracy() && (
+                  <Card className="p-4">
+                    <h4 className="font-semibold mb-2">Attack Results</h4>
+                    <p className="text-sm">
+                      Accuracy: {calculateAccuracy()?.accuracy}%
+                      <br />
+                      True Positives: {calculateAccuracy()?.truePositives}
+                      <br />
+                      Total Predictions: {calculateAccuracy()?.totalPredictions}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-4">
+                      Regularization provides some protection by reducing overfitting,
+                      but the model's predictions still reveal membership information,
+                      though with less certainty than before.
+                    </p>
+                  </Card>
+                )}
               </div>
             ) : (
               <div className="h-full bg-secondary/10 rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">Apply defense to see comparison</p>
+                <p className="text-muted-foreground">Apply regularization to see distribution</p>
               </div>
             )}
           </div>

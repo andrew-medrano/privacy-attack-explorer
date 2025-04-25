@@ -53,7 +53,7 @@ const SimulatorLayout: React.FC<SimulatorLayoutProps> = ({
                 onClick={() => handleStageClick(3)}
                 className="px-2 py-1"
               >
-                K-Anonymity
+                Regularization
               </Button>
               <Button
                 variant={currentStage === 4 ? "default" : "ghost"}
