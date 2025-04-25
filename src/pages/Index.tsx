@@ -7,7 +7,7 @@ import StageThree from '@/components/stages/StageThree';
 import StageFour from '@/components/stages/StageFour';
 import { Button } from '@/components/ui/button';
 import { useToast } from "@/hooks/use-toast";
-import { Info } from 'lucide-react';
+import { Info, RefreshCcw } from 'lucide-react';
 
 const Index = () => {
   const [currentStage, setCurrentStage] = useState(1);
@@ -19,6 +19,15 @@ const Index = () => {
       description: "You've successfully completed this stage.",
     });
     setCurrentStage(stage + 1);
+  };
+
+  const handleReset = () => {
+    toast({
+      title: "Simulator Reset",
+      description: "Returned to the first stage of the Membership Inference Attack simulation.",
+      variant: "default"
+    });
+    setCurrentStage(1);
   };
 
   return (
@@ -56,6 +65,17 @@ const Index = () => {
             </div>
           </div>
         </div>
+        {currentStage === 4 && (
+          <div className="flex justify-end mb-4">
+            <Button 
+              variant="outline" 
+              onClick={handleReset}
+            >
+              <RefreshCcw className="mr-2" />
+              Start Over
+            </Button>
+          </div>
+        )}
       </div>
       {currentStage === 1 && <StageOne onComplete={() => handleStageComplete(1)} />}
       {currentStage === 2 && <StageTwo onComplete={() => handleStageComplete(2)} />}
