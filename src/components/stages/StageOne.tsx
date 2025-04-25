@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Info, RefreshCcw } from 'lucide-react';
 import PatientCard from '../PatientCard';
+import ModelInfoCard from '../ModelInfoCard';
 import { Patient } from '@/types/patient';
 import { useToast } from "@/hooks/use-toast";
 
@@ -60,15 +61,35 @@ const SAMPLE_PATIENTS: Patient[] = [
 ];
 
 const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
-  const [patients, setPatients] = useState<Patient[]>(SAMPLE_PATIENTS);
+  const [patients, setPatients] = useState<Patient[]>(
+    SAMPLE_PATIENTS.map(p => ({ ...p, confidence: 0 }))
+  );
   const [showResults, setShowResults] = useState(false);
+  const [predictionsRun, setPredictionsRun] = useState(false);
   const { toast } = useToast();
 
   const handlePatientSelect = (id: number) => {
+    if (!predictionsRun) {
+      toast({
+        title: "Run predictions first",
+        description: "You need to run the model predictions before selecting patients.",
+        variant: "destructive",
+      });
+      return;
+    }
     setPatients(patients.map(p => ({
       ...p,
       selected: p.id === id ? !p.selected : p.selected,
     })));
+  };
+
+  const runPredictions = () => {
+    setPredictionsRun(true);
+    setPatients(SAMPLE_PATIENTS);
+    toast({
+      title: "Model Predictions Complete",
+      description: "The model has generated confidence scores for each patient. Look for unusually high confidence scores!",
+    });
   };
 
   const handleCheck = () => {
@@ -93,8 +114,9 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
   };
 
   const handleReset = () => {
-    setPatients(SAMPLE_PATIENTS);
+    setPatients(SAMPLE_PATIENTS.map(p => ({ ...p, confidence: 0 })));
     setShowResults(false);
+    setPredictionsRun(false);
   };
 
   return (
@@ -102,25 +124,19 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Stage 1: Basic Membership Inference</h2>
         
-        <Card className="p-4 bg-secondary/10">
-          <div className="flex gap-3">
-            <Info className="w-5 h-5 mt-1 text-primary" />
-            <div className="space-y-3">
-              <h3 className="font-medium">Heart Disease Prediction Model</h3>
-              <p className="text-sm text-muted-foreground">
-                You have access to a model trained to predict heart disease. This model was trained on private patient data.
-                For each patient, the model outputs a confidence score for heart disease risk.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Your task: Identify which patients' data was used to train the model based on the confidence scores.
-                Very high confidence scores (95-100%) often indicate that the patient's data was part of the training set.
-              </p>
-              <p className="text-sm font-medium text-primary">
-                Select the patients you think were part of the training data.
-              </p>
-            </div>
+        <ModelInfoCard />
+
+        {!predictionsRun && (
+          <div className="flex justify-center my-6">
+            <Button 
+              size="lg"
+              onClick={runPredictions}
+              className="w-full max-w-md"
+            >
+              Run Model Predictions
+            </Button>
           </div>
-        </Card>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {patients.map((patient) => (
@@ -133,30 +149,38 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
           ))}
         </div>
 
-        <div className="flex gap-2 justify-end">
-          <Button 
-            variant="outline" 
-            onClick={handleReset}
-            disabled={!showResults}
-          >
-            <RefreshCcw className="mr-2" />
-            Try Again
-          </Button>
-          
-          {!showResults ? (
+        {predictionsRun && !showResults && patients.filter(p => p.selected).length > 0 && (
+          <div className="flex gap-2 justify-end">
+            <Button 
+              variant="outline" 
+              onClick={handleReset}
+            >
+              <RefreshCcw className="mr-2" />
+              Try Again
+            </Button>
             <Button onClick={handleCheck}>
               Check Predictions
             </Button>
-          ) : (
+          </div>
+        )}
+
+        {showResults && (
+          <div className="flex gap-2 justify-end">
+            <Button 
+              variant="outline" 
+              onClick={handleReset}
+            >
+              <RefreshCcw className="mr-2" />
+              Try Again
+            </Button>
             <Button onClick={onComplete}>
               Next Stage
             </Button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default StageOne;
-
