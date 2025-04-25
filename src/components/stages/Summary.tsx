@@ -71,12 +71,12 @@ const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Privacy-Utility Trade-off</h3>
           <div className="space-y-4">
-            <div className="h-[300px]">
-              <LineChart width={400} height={300} data={privacyData}>
+            <div className="h-[360px]">
+              <LineChart width={400} height={330} data={privacyData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
                   dataKey="epsilon" 
-                  label={{ value: 'Privacy Budget (ε)', position: 'bottom', offset: 5 }}
+                  label={{ value: 'Privacy Budget (ε)', position: 'bottom', offset: 15 }}
                 />
                 <YAxis label={{ value: 'Score (%)', angle: -90, position: 'insideLeft' }} />
                 <Tooltip />
@@ -95,7 +95,7 @@ const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
                 />
               </LineChart>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground mt-4">
               This chart illustrates the fundamental trade-off in differential privacy: 
               as we increase the privacy budget (ε), we get better model accuracy but 
               weaker privacy guarantees. A smaller ε means stronger privacy but potentially 
