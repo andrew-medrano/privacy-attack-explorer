@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { RefreshCcw } from 'lucide-react';
+import { RefreshCcw, Info } from 'lucide-react';
 import PatientCard from '../PatientCard';
 import ModelInfoCard from '../ModelInfoCard';
 import { Patient } from '@/types/patient';
@@ -137,65 +136,79 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="w-full p-6 space-y-6">
-      <div className="space-y-4">
+    <div className="w-full space-y-4">
+      <div className="space-y-2">
         <h2 className="text-2xl font-bold">Stage 1: Basic Membership Inference</h2>
         
-        <ModelInfoCard />
-
-        {!predictionsRun && (
-          <div className="flex justify-center my-6">
-            <Button 
-              size="lg"
-              onClick={runPredictions}
-              className="w-full max-w-md"
-            >
-              Run Model Predictions
-            </Button>
+        <Card className="p-4 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border-blue-200 dark:border-blue-800">
+          <div className="space-y-2">
+            <h3 className="font-semibold text-blue-900 dark:text-blue-100">What to do:</h3>
+            <ol className="list-decimal list-inside space-y-1 text-blue-800 dark:text-blue-200">
+              <li>Review the model information above</li>
+              <li>Click "Run Model Predictions" to get confidence scores</li>
+              <li>Select which patients you think were in the training data (hint: look for patterns in confidence scores)</li>
+            </ol>
+            <p className="text-sm text-blue-700 dark:text-blue-300 mt-2 italic">
+              Hint: Training data patients tend to have slightly higher confidence scores
+            </p>
           </div>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {patients.map((patient) => (
-            <PatientCard
-              key={patient.id}
-              patient={patient}
-              onSelect={handlePatientSelect}
-              showResults={showResults}
-            />
-          ))}
-        </div>
-
-        {predictionsRun && !showResults && patients.filter(p => p.selected).length > 0 && (
-          <div className="flex gap-2 justify-end">
-            <Button 
-              variant="outline" 
-              onClick={handleReset}
-            >
-              <RefreshCcw className="mr-2" />
-              Try Again
-            </Button>
-            <Button onClick={handleCheck}>
-              Check Predictions
-            </Button>
-          </div>
-        )}
-
-        {showResults && (
-          <div className="flex gap-2 justify-end">
-            <Button 
-              variant="outline" 
-              onClick={handleReset}
-            >
-              <RefreshCcw className="mr-2" />
-              Try Again
-            </Button>
-            <Button onClick={onComplete}>
-              Next Stage
-            </Button>
-          </div>
-        )}
+        </Card>
       </div>
+      
+      <ModelInfoCard />
+
+      {!predictionsRun && (
+        <div className="flex justify-center my-6">
+          <Button 
+            size="lg"
+            onClick={runPredictions}
+            className="w-full max-w-md"
+          >
+            Run Model Predictions
+          </Button>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {patients.map((patient) => (
+          <PatientCard
+            key={patient.id}
+            patient={patient}
+            onSelect={handlePatientSelect}
+            showResults={showResults}
+          />
+        ))}
+      </div>
+
+      {predictionsRun && !showResults && patients.filter(p => p.selected).length > 0 && (
+        <div className="flex gap-2 justify-end">
+          <Button 
+            variant="outline" 
+            onClick={handleReset}
+          >
+            <RefreshCcw className="mr-2" />
+            Try Again
+          </Button>
+          <Button onClick={handleCheck}>
+            Check Predictions
+          </Button>
+        </div>
+      )}
+
+      {showResults && (
+        <div className="flex gap-2 justify-end">
+          <Button 
+            variant="outline" 
+            onClick={handleReset}
+          >
+            <RefreshCcw className="mr-2" />
+            Try Again
+          </Button>
+          <Button onClick={onComplete}>
+            Next Stage
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
