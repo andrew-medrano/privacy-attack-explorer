@@ -150,7 +150,7 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                     Restart
                   </Button>
                   <Button className="bg-green-500 hover:bg-green-600" onClick={onComplete}>
-                    Next Stage
+                    Summary
                   </Button>
                 </>
               )}
