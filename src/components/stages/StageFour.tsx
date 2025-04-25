@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Shield, RefreshCcw } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 
 interface StageFourProps {
@@ -114,39 +114,41 @@ const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
           <div className="h-64">
             {results.length > 0 ? (
               <div className="space-y-4">
-                <ResponsiveContainer width="100%" height={200}>
-                  <AreaChart data={results}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="query" />
-                    <YAxis />
-                    <Tooltip content={<ChartTooltipContent />} />
-                    <Legend />
-                    <Area 
-                      type="monotone" 
-                      dataKey="privacyLevel" 
-                      stroke="#9b87f5" 
-                      fill="#9b87f5" 
-                      fillOpacity={0.3}
-                      name="Privacy Level"
-                    />
-                    <Area 
-                      type="monotone" 
-                      dataKey="utilityLoss" 
-                      stroke="#94A3B8" 
-                      fill="#94A3B8" 
-                      fillOpacity={0.3}
-                      name="Utility Loss"
-                    />
-                    <Area 
-                      type="monotone" 
-                      dataKey="attackSuccess" 
-                      stroke="#ef4444" 
-                      fill="#ef4444" 
-                      fillOpacity={0.3}
-                      name="Attack Success"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+                <ChartContainer config={chartConfig}>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={results}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="query" />
+                      <YAxis />
+                      <Tooltip content={<ChartTooltipContent />} />
+                      <Legend />
+                      <Area 
+                        type="monotone" 
+                        dataKey="privacyLevel" 
+                        stroke="#9b87f5" 
+                        fill="#9b87f5" 
+                        fillOpacity={0.3}
+                        name="Privacy Level"
+                      />
+                      <Area 
+                        type="monotone" 
+                        dataKey="utilityLoss" 
+                        stroke="#94A3B8" 
+                        fill="#94A3B8" 
+                        fillOpacity={0.3}
+                        name="Utility Loss"
+                      />
+                      <Area 
+                        type="monotone" 
+                        dataKey="attackSuccess" 
+                        stroke="#ef4444" 
+                        fill="#ef4444" 
+                        fillOpacity={0.3}
+                        name="Attack Success"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
                 
                 {aggregateStats && (
                   <Card className="p-4">
@@ -190,4 +192,3 @@ const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
 };
 
 export default StageFour;
-
