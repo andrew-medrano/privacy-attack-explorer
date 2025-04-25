@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
 
 interface StageTwoProps {
@@ -161,6 +161,12 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
                       stroke="#9b87f5" 
                       strokeWidth={2}
                     />
+                    <ReferenceLine
+                      x={`${Math.floor(threshold[0] / 5) * 5}-${Math.floor(threshold[0] / 5) * 5 + 4}`}
+                      stroke="red"
+                      strokeDasharray="3 3"
+                      label={{ value: `Threshold: ${threshold[0]}%`, position: 'top' }}
+                    />
                   </LineChart>
                 </div>
               </Card>
@@ -180,6 +186,15 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
                     <p className="text-sm text-muted-foreground mt-4">
                       Patients with confidence ≥ {threshold[0]}% were classified as training data
                     </p>
+                    <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+                      <p className="text-sm text-muted-foreground">
+                        With auxiliary data (age and blood pressure), the model shows a clearer 
+                        separation between training and non-training data. This additional information 
+                        makes it easier to distinguish between patients who were part of the training 
+                        set (clustering around 90% confidence) and those who weren't (around 65% confidence), 
+                        demonstrating how auxiliary data can enhance membership inference attacks.
+                      </p>
+                    </div>
                   </div>
                 </Card>
               )}
