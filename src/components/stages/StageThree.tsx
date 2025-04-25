@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, BarChart, Bar } from 'recharts';
 import { Sliders, RefreshCcw } from 'lucide-react';
 
 interface StageThreeProps {
@@ -12,8 +12,16 @@ interface StageThreeProps {
 
 const generateRegularizationResults = (regularization: number) => {
   // Generate 100 data points with more overlap based on regularization
-  const baseAccuracyTraining = Math.max(0.65, 0.9 - (regularization * 0.4));
-  const baseAccuracyNonTraining = Math.min(0.85, 0.6 + (regularization * 0.25));
+  // When regularization is high (>0.7), both accuracies decrease
+  const isOverRegularized = regularization > 0.7;
+  
+  const baseAccuracyTraining = isOverRegularized 
+    ? Math.max(0.5, 0.9 - (regularization * 0.7)) // Drops more sharply when over-regularized
+    : Math.max(0.65, 0.9 - (regularization * 0.4));
+    
+  const baseAccuracyNonTraining = isOverRegularized
+    ? Math.max(0.5, 0.85 - (regularization * 0.5)) // Also decreases when over-regularized
+    : Math.min(0.85, 0.6 + (regularization * 0.25));
   
   const data = Array.from({ length: 20 }, (_, i) => {
     const confidence = i * 5;
@@ -24,6 +32,7 @@ const generateRegularizationResults = (regularization: number) => {
       confidence: `${confidence}-${confidence + 4}`,
       training: trainingCount,
       nonTraining: nonTrainingCount,
+      total: trainingCount + nonTrainingCount // Combined count for initial view
     };
   });
 
@@ -34,18 +43,25 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
   const [regularization, setRegularization] = useState([0.2]);
   const [threshold, setThreshold] = useState([70]);
   const [results, setResults] = useState<any[]>([]);
-  const [attacked, setAttacked] = useState(false);
+  const [showColorCoded, setShowColorCoded] = useState(false);
+  const [isModelTrained, setIsModelTrained] = useState(false);
   const [attempts, setAttempts] = useState(0);
 
-  const handleApplyDefense = () => {
+  const handleTrainModel = () => {
     const newResults = generateRegularizationResults(regularization[0]);
     setResults(newResults);
-    setAttacked(true);
+    setIsModelTrained(true);
+    setShowColorCoded(false);
+  };
+
+  const handleConfirmThreshold = () => {
+    setShowColorCoded(true);
     setAttempts(prev => prev + 1);
   };
 
   const handleReset = () => {
-    setAttacked(false);
+    setIsModelTrained(false);
+    setShowColorCoded(false);
     setResults([]);
   };
 
@@ -86,12 +102,13 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                 step={0.1}
                 value={regularization}
                 onValueChange={setRegularization}
+                disabled={isModelTrained}
               />
               <span className="text-sm text-muted-foreground mt-1 block">
                 Strength = {regularization[0]} (higher values reduce overfitting)
               </span>
             </div>
-            {attacked && (
+            {isModelTrained && !showColorCoded && (
               <div>
                 <label className="text-sm font-medium mb-2 block">Confidence Threshold (%)</label>
                 <Slider 
@@ -116,10 +133,17 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
               </div>
             </div>
             <div className="flex gap-2">
-              <Button className="flex-1" onClick={handleApplyDefense}>
-                {attacked ? "Try Again" : "Apply Regularization"}
-              </Button>
-              {attacked && (
+              {!isModelTrained && (
+                <Button className="flex-1" onClick={handleTrainModel}>
+                  Train Model
+                </Button>
+              )}
+              {isModelTrained && !showColorCoded && (
+                <Button className="flex-1" onClick={handleConfirmThreshold}>
+                  Confirm Threshold
+                </Button>
+              )}
+              {showColorCoded && (
                 <>
                   <Button variant="outline" onClick={handleReset}>
                     <RefreshCcw className="mr-2" />
@@ -138,58 +162,74 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
           <div className="h-[300px]">
             {results.length > 0 ? (
               <div className="space-y-4">
-                <AreaChart width={400} height={200} data={results}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="confidence" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Area 
-                    type="monotone" 
-                    dataKey="training" 
-                    stroke="#ef4444" 
-                    fill="#ef4444" 
-                    fillOpacity={0.3}
-                    name="Training Data"
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="nonTraining" 
-                    stroke="#9b87f5" 
-                    fill="#9b87f5" 
-                    fillOpacity={0.3}
-                    name="Non-training Data"
-                  />
-                  {attacked && (
+                {!showColorCoded ? (
+                  <BarChart width={400} height={200} data={results}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="confidence" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="total" fill="#94a3b8" name="All Predictions" />
                     <ReferenceLine
                       x={`${Math.floor(threshold[0] / 5) * 5}-${Math.floor(threshold[0] / 5) * 5 + 4}`}
                       stroke="red"
                       strokeDasharray="3 3"
                       label={{ value: `Threshold: ${threshold[0]}%`, position: 'top' }}
                     />
-                  )}
-                </AreaChart>
-                {calculateAccuracy() && (
-                  <Card className="p-4">
-                    <h4 className="font-semibold mb-2">Attack Results</h4>
-                    <p className="text-sm">
-                      Accuracy: {calculateAccuracy()?.accuracy}%
-                      <br />
-                      True Positives: {calculateAccuracy()?.truePositives}
-                      <br />
-                      Total Predictions: {calculateAccuracy()?.totalPredictions}
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-4">
-                      Regularization provides some protection by reducing overfitting,
-                      but the model's predictions still reveal membership information,
-                      though with less certainty than before.
-                    </p>
-                  </Card>
+                  </BarChart>
+                ) : (
+                  <>
+                    <AreaChart width={400} height={200} data={results}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="confidence" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Area 
+                        type="monotone" 
+                        dataKey="training" 
+                        stroke="#ef4444" 
+                        fill="#ef4444" 
+                        fillOpacity={0.3}
+                        name="Training Data"
+                      />
+                      <Area 
+                        type="monotone" 
+                        dataKey="nonTraining" 
+                        stroke="#9b87f5" 
+                        fill="#9b87f5" 
+                        fillOpacity={0.3}
+                        name="Non-training Data"
+                      />
+                      <ReferenceLine
+                        x={`${Math.floor(threshold[0] / 5) * 5}-${Math.floor(threshold[0] / 5) * 5 + 4}`}
+                        stroke="red"
+                        strokeDasharray="3 3"
+                        label={{ value: `Threshold: ${threshold[0]}%`, position: 'top' }}
+                      />
+                    </AreaChart>
+                    {calculateAccuracy() && (
+                      <Card className="p-4">
+                        <h4 className="font-semibold mb-2">Attack Results</h4>
+                        <p className="text-sm">
+                          Accuracy: {calculateAccuracy()?.accuracy}%
+                          <br />
+                          True Positives: {calculateAccuracy()?.truePositives}
+                          <br />
+                          Total Predictions: {calculateAccuracy()?.totalPredictions}
+                        </p>
+                        <p className="text-sm text-muted-foreground mt-4">
+                          {regularization[0] > 0.7 
+            ? "The model is over-regularized, causing both training and non-training predictions to become less accurate."
+            : "Regularization provides some protection by reducing overfitting, but the model's predictions still reveal membership information, though with less certainty than before."}
+                        </p>
+                      </Card>
+                    )}
+                  </>
                 )}
               </div>
             ) : (
               <div className="h-full bg-secondary/10 rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">Apply regularization to see distribution</p>
+                <p className="text-muted-foreground">Train the model to see distribution</p>
               </div>
             )}
           </div>
