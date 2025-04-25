@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,7 @@ const generateRegularizationResults = (epsilon: number) => {
 };
 
 const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
-  const [epsilon, setEpsilon] = useState([1.0]);
+  const [epsilon, setEpsilon] = useState([0.2]);
   const [threshold, setThreshold] = useState([70]);
   const [results, setResults] = useState<any[]>([]);
   const [showColorCoded, setShowColorCoded] = useState(false);
@@ -103,8 +104,8 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Privacy Budget (ε)</label>
               <Slider 
-                defaultValue={[1.0]} 
-                max={10} 
+                defaultValue={[0.2]} 
+                max={1} 
                 step={0.1}
                 value={epsilon}
                 onValueChange={setEpsilon}
