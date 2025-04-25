@@ -2,125 +2,161 @@
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import { RefreshCcw } from 'lucide-react';
+import { Info, RefreshCcw } from 'lucide-react';
+import PatientCard from '../PatientCard';
+import { Patient } from '@/types/patient';
+import { useToast } from "@/hooks/use-toast";
 
 interface StageOneProps {
   onComplete: () => void;
 }
 
-const generateMockData = (sampleCount: number) => {
-  return Array.from({ length: sampleCount }, (_, i) => ({
-    name: `Sample ${i + 1}`,
-    confidence: Math.random() * 0.7 + 0.2, // Random value between 0.2 and 0.9
-    wasInTraining: Math.random() > 0.5,
-  }));
-};
+const SAMPLE_PATIENTS: Patient[] = [
+  {
+    id: 1,
+    name: "Patient 1",
+    age: 65,
+    bloodPressure: "140/90",
+    cholesterol: "High",
+    confidence: 98,
+    wasInTraining: true,
+  },
+  {
+    id: 2,
+    name: "Patient 2",
+    age: 45,
+    bloodPressure: "120/80",
+    cholesterol: "Normal",
+    confidence: 65,
+    wasInTraining: false,
+  },
+  {
+    id: 3,
+    name: "Patient 3",
+    age: 72,
+    bloodPressure: "160/95",
+    cholesterol: "High",
+    confidence: 99,
+    wasInTraining: true,
+  },
+  {
+    id: 4,
+    name: "Patient 4",
+    age: 50,
+    bloodPressure: "130/85",
+    cholesterol: "Normal",
+    confidence: 70,
+    wasInTraining: false,
+  },
+  {
+    id: 5,
+    name: "Patient 5",
+    age: 68,
+    bloodPressure: "150/92",
+    cholesterol: "High",
+    confidence: 95,
+    wasInTraining: true,
+  },
+];
 
 const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
-  const [sampleCount, setSampleCount] = useState([3]);
-  const [attacked, setAttacked] = useState(false);
-  const [results, setResults] = useState<any[]>([]);
-  const [correctGuesses, setCorrectGuesses] = useState(0);
-  const [totalAttempts, setTotalAttempts] = useState(0);
+  const [patients, setPatients] = useState<Patient[]>(SAMPLE_PATIENTS);
+  const [showResults, setShowResults] = useState(false);
+  const { toast } = useToast();
 
-  const handleAttack = () => {
-    const newResults = generateMockData(sampleCount[0]);
-    setResults(newResults);
-    setAttacked(true);
-    setTotalAttempts(prev => prev + 1);
-    
-    // Simulate correct guesses based on confidence threshold
-    const correct = newResults.reduce((acc, result) => 
-      acc + (result.confidence > 0.7 === result.wasInTraining ? 1 : 0), 0);
-    setCorrectGuesses(prev => prev + correct);
+  const handlePatientSelect = (id: number) => {
+    setPatients(patients.map(p => ({
+      ...p,
+      selected: p.id === id ? !p.selected : p.selected,
+    })));
+  };
+
+  const handleCheck = () => {
+    const selectedPatients = patients.filter(p => p.selected);
+    const correctGuesses = selectedPatients.filter(p => p.wasInTraining).length;
+    const incorrectGuesses = selectedPatients.filter(p => !p.wasInTraining).length;
+    const accuracy = (correctGuesses / 3) * 100; // 3 is the number of actual training samples
+
+    setShowResults(true);
+    toast({
+      title: `Attack Results`,
+      description: `You correctly identified ${correctGuesses} out of 3 training samples. Accuracy: ${accuracy}%`,
+    });
+
+    if (accuracy >= 66) {
+      toast({
+        title: "Stage Complete!",
+        description: "You've successfully demonstrated a membership inference attack. Move on to learn about more sophisticated attacks.",
+        variant: "default"
+      });
+    }
   };
 
   const handleReset = () => {
-    setAttacked(false);
-    setResults([]);
+    setPatients(SAMPLE_PATIENTS);
+    setShowResults(false);
   };
 
   return (
-    <div className="w-full p-6">
-      <h2 className="text-2xl font-bold mb-4">Stage 1: Basic Membership Inference</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Model Predictions</h3>
-          <div className="h-64">
-            {attacked ? (
-              <div className="space-y-4">
-                <BarChart width={400} height={200} data={results}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="confidence" fill="#9b87f5" />
-                </BarChart>
-                <div className="text-sm text-muted-foreground">
-                  Accuracy: {((correctGuesses / totalAttempts) * 100).toFixed(1)}%
-                </div>
-              </div>
-            ) : (
-              <div className="h-full bg-secondary/10 rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">Launch attack to see predictions</p>
-              </div>
-            )}
-          </div>
-        </Card>
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Attack Configuration</h3>
-          <div className="space-y-6">
-            <div>
-              <label className="text-sm font-medium mb-2 block">Number of Samples</label>
-              <Slider 
-                defaultValue={[3]} 
-                max={10} 
-                step={1}
-                value={sampleCount}
-                onValueChange={setSampleCount}
-              />
-              <span className="text-sm text-muted-foreground mt-1 block">
-                Testing {sampleCount} samples
-              </span>
-            </div>
-            <div className="p-4 bg-secondary/10 rounded-lg">
+    <div className="w-full p-6 space-y-6">
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Stage 1: Basic Membership Inference</h2>
+        
+        <Card className="p-4 bg-secondary/10">
+          <div className="flex gap-3">
+            <Info className="w-5 h-5 mt-1 text-primary" />
+            <div className="space-y-3">
+              <h3 className="font-medium">Heart Disease Prediction Model</h3>
               <p className="text-sm text-muted-foreground">
-                This basic attack will attempt to determine which samples were used in the model's training data.
-                Higher confidence scores suggest the sample was likely part of the training set.
+                You have access to a model trained to predict heart disease. This model was trained on private patient data.
+                For each patient, the model outputs a confidence score for heart disease risk.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Your task: Identify which patients' data was used to train the model based on the confidence scores.
+                Very high confidence scores (95-100%) often indicate that the patient's data was part of the training set.
+              </p>
+              <p className="text-sm font-medium text-primary">
+                Select the patients you think were part of the training data.
               </p>
             </div>
-            <div className="flex gap-2">
-              <Button 
-                className="flex-1" 
-                onClick={handleAttack}
-              >
-                {attacked ? "Try Again" : "Launch Attack"}
-              </Button>
-              {attacked && (
-                <>
-                  <Button 
-                    variant="outline" 
-                    onClick={handleReset}
-                  >
-                    <RefreshCcw className="mr-2" />
-                    Reset
-                  </Button>
-                  <Button 
-                    variant="secondary"
-                    onClick={onComplete}
-                  >
-                    Next Stage
-                  </Button>
-                </>
-              )}
-            </div>
           </div>
         </Card>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {patients.map((patient) => (
+            <PatientCard
+              key={patient.id}
+              patient={patient}
+              onSelect={handlePatientSelect}
+              showResults={showResults}
+            />
+          ))}
+        </div>
+
+        <div className="flex gap-2 justify-end">
+          <Button 
+            variant="outline" 
+            onClick={handleReset}
+            disabled={!showResults}
+          >
+            <RefreshCcw className="mr-2" />
+            Try Again
+          </Button>
+          
+          {!showResults ? (
+            <Button onClick={handleCheck}>
+              Check Predictions
+            </Button>
+          ) : (
+            <Button onClick={onComplete}>
+              Next Stage
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
 export default StageOne;
+
