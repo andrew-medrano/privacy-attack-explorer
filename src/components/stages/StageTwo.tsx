@@ -30,7 +30,7 @@ const generatePatients = (count: number): Patient[] => {
 };
 
 const generateConfidence = (wasInTraining: boolean): number => {
-  const baseMean = wasInTraining ? 80 : 65;
+  const baseMean = wasInTraining ? 90 : 65; // Changed from 80 to 90 for training data
   const noise = (Math.random() - 0.5) * 15;
   return Math.min(Math.max(Math.round(baseMean + noise), 50), 95);
 };

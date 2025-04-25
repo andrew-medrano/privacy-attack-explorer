@@ -22,6 +22,15 @@ const Index = () => {
     setCurrentStage(stage + 1);
   };
 
+  const handleStageSelect = (stage: number) => {
+    setCurrentStage(stage);
+    toast({
+      title: `Navigated to Stage ${stage}`,
+      description: "You can now explore this stage.",
+      variant: "default"
+    });
+  };
+
   const handleReset = () => {
     toast({
       title: "Simulator Reset",
@@ -32,7 +41,7 @@ const Index = () => {
   };
 
   return (
-    <SimulatorLayout currentStage={currentStage}>
+    <SimulatorLayout currentStage={currentStage} onStageSelect={handleStageSelect}>
       <div className="mb-6">
         {currentStage === 4 && (
           <div className="flex justify-end mb-4">
