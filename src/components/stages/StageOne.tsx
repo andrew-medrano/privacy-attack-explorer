@@ -129,7 +129,7 @@ const StageOne: React.FC<StageOneProps> = ({
       <div className="space-y-2">
         <h2 className="text-2xl font-bold">Stage 1: Basic Membership Inference</h2>
         
-        <Card className="p-4 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border-blue-200 dark:border-blue-800 bg-[#b3b34f]/[0.31]">
+        <Card className="p-4 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-yellow-900/20 dark:to-blue-800/20 border-blue-200 dark:border-blue-800 bg-[#b3b34f]/[0.31]">
           <div className="space-y-2">
             <h3 className="font-semibold text-blue-900 dark:text-blue-100">What to do:</h3>
             <ol className="list-decimal list-inside space-y-1 text-blue-800 dark:text-blue-200">
