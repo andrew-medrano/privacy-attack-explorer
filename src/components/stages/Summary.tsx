@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -70,16 +71,16 @@ const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Privacy-Utility Trade-off</h3>
           <div className="space-y-4">
-            <div className="h-[350px]">
+            <div className="h-[300px]">
               <LineChart width={400} height={300} data={privacyData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
                   dataKey="epsilon" 
-                  label={{ value: 'Privacy Budget (ε)', position: 'bottom', offset: 10 }}
+                  label={{ value: 'Privacy Budget (ε)', position: 'bottom', offset: 0 }}
                 />
                 <YAxis label={{ value: 'Score (%)', angle: -90, position: 'insideLeft' }} />
                 <Tooltip />
-                <Legend verticalAlign="bottom" height={36} />
+                <Legend />
                 <Line 
                   type="monotone" 
                   dataKey="accuracy" 
