@@ -218,8 +218,8 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                         </p>
                         <p className="text-sm text-muted-foreground mt-4">
                           {regularization[0] > 0.7 
-            ? "The model is over-regularized, causing both training and non-training predictions to become less accurate."
-            : "Regularization provides some protection by reducing overfitting, but the model's predictions still reveal membership information, though with less certainty than before."}
+                            ? "The model's privacy protection is too strong, causing the predictions to become less distinguishable and less accurate."
+                            : "Differential privacy provides some protection by adding calibrated noise, reducing the model's ability to reveal membership information while maintaining some predictive power."}
                         </p>
                       </Card>
                     )}
