@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -221,6 +220,8 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                         <h4 className="font-semibold mb-2">Attack Results</h4>
                         <p className="text-sm">
                           Accuracy: {calculateAccuracy()?.accuracy}%
+                          <br />
+                          <span className="text-muted-foreground">(20% is baseline accuracy from random guessing, as 20% of data was in training set)</span>
                           <br />
                           True Positives: {calculateAccuracy()?.truePositives}
                           <br />
