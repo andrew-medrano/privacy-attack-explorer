@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Info, RefreshCcw } from 'lucide-react';
+import { RefreshCcw } from 'lucide-react';
 import PatientCard from '../PatientCard';
 import ModelInfoCard from '../ModelInfoCard';
 import { Patient } from '@/types/patient';
@@ -38,7 +38,7 @@ const SAMPLE_PATIENTS: Patient[] = [
     bloodPressure: "160/95",
     cholesterol: "High",
     confidence: 0,
-    wasInTraining: true,
+    wasInTraining: false,
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ const SAMPLE_PATIENTS: Patient[] = [
     bloodPressure: "130/85",
     cholesterol: "Normal",
     confidence: 0,
-    wasInTraining: false,
+    wasInTraining: true,
   },
   {
     id: 5,
@@ -56,7 +56,16 @@ const SAMPLE_PATIENTS: Patient[] = [
     bloodPressure: "150/92",
     cholesterol: "High",
     confidence: 0,
-    wasInTraining: true,
+    wasInTraining: false,
+  },
+  {
+    id: 6,
+    name: "Patient 6",
+    age: 55,
+    bloodPressure: "145/88",
+    cholesterol: "Normal",
+    confidence: 0,
+    wasInTraining: false,
   },
 ];
 
@@ -104,12 +113,12 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
     const selectedPatients = patients.filter(p => p.selected);
     const correctGuesses = selectedPatients.filter(p => p.wasInTraining).length;
     const incorrectGuesses = selectedPatients.filter(p => !p.wasInTraining).length;
-    const accuracy = (correctGuesses / 3) * 100; // 3 is the number of actual training samples
+    const accuracy = (correctGuesses / 2) * 100; // 2 is the number of actual training samples
 
     setShowResults(true);
     toast({
       title: `Attack Results`,
-      description: `You correctly identified ${correctGuesses} out of 3 training samples. Accuracy: ${accuracy}%`,
+      description: `You correctly identified ${correctGuesses} out of 2 training samples. Accuracy: ${accuracy}%`,
     });
 
     if (accuracy >= 66) {
