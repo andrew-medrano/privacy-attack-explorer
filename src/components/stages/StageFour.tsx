@@ -11,10 +11,11 @@ interface StageFourProps {
   onComplete: () => void;
 }
 
-const generateDPResults = (epsilon: number, dataPoints: number) => {
+const generateDPResults = (epsilon: number) => {
   // Generate results based on epsilon (privacy parameter)
   // Lower epsilon = more privacy but less utility
-  return Array.from({ length: dataPoints }, (_, i) => ({
+  // Fixed to 5 data points for simplicity
+  return Array.from({ length: 5 }, (_, i) => ({
     query: i + 1,
     privacyLevel: Math.max(0, 1 - (epsilon * 0.1)),  // Higher with lower epsilon
     utilityLoss: Math.min(1, (1 / epsilon) * 0.5),   // Higher with lower epsilon
@@ -24,13 +25,12 @@ const generateDPResults = (epsilon: number, dataPoints: number) => {
 
 const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
   const [epsilon, setEpsilon] = useState([1]);
-  const [dataPoints, setDataPoints] = useState([5]);
   const [results, setResults] = useState<any[]>([]);
   const [attacked, setAttacked] = useState(false);
   const [attempts, setAttempts] = useState(0);
 
   const handleApplyDP = () => {
-    const newResults = generateDPResults(epsilon[0], dataPoints[0]);
+    const newResults = generateDPResults(epsilon[0]);
     setResults(newResults);
     setAttacked(true);
     setAttempts(prev => prev + 1);
@@ -58,7 +58,6 @@ const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
 
   const aggregateStats = calculateAggregateStats();
   
-  // Config for the chart colors
   const chartConfig = {
     privacy: { 
       label: "Privacy Level", 
@@ -94,19 +93,6 @@ const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
                 ε = {epsilon[0]} (smaller values = stronger privacy)
               </span>
             </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Number of Queries</label>
-              <Slider 
-                defaultValue={[5]} 
-                max={10} 
-                step={1}
-                value={dataPoints}
-                onValueChange={setDataPoints}
-              />
-              <span className="text-sm text-muted-foreground mt-1 block">
-                Testing with {dataPoints[0]} queries
-              </span>
-            </div>
             <div className="p-4 bg-secondary/10 rounded-lg">
               <div className="flex gap-2 items-start">
                 <Shield className="w-4 h-4 mt-1" />
@@ -120,12 +106,6 @@ const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
               <Button className="flex-1" onClick={handleApplyDP}>
                 {attacked ? "Try Again" : "Apply Privacy Defense"}
               </Button>
-              {attacked && (
-                <Button variant="outline" onClick={handleReset}>
-                  <RefreshCcw className="mr-2" />
-                  Reset
-                </Button>
-              )}
             </div>
           </div>
         </Card>
@@ -210,3 +190,4 @@ const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
 };
 
 export default StageFour;
+
