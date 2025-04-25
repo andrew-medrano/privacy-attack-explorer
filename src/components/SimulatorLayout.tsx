@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Shield, FileText } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { useNavigate } from 'react-router-dom';
 
 interface SimulatorLayoutProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ const SimulatorLayout: React.FC<SimulatorLayoutProps> = ({
   currentStage,
   onStageSelect 
 }) => {
+  const navigate = useNavigate();
   const progress = (currentStage / 4) * 100;
 
   const handleStageClick = (stage: number) => {
@@ -24,14 +26,22 @@ const SimulatorLayout: React.FC<SimulatorLayoutProps> = ({
     }
   };
 
+  const handleTitleClick = () => {
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen bg-[#D3E4FD]">
       <header className="border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">Membership Inference Attack Simulator</h1>
-              <p className="text-muted-foreground mt-2">Learn about privacy attacks and defenses through interactive simulation</p>
+            <div onClick={handleTitleClick} className="cursor-pointer">
+              <h1 className="text-3xl font-bold hover:text-blue-600 transition-colors">
+                Membership Inference Attack Simulator
+              </h1>
+              <p className="text-muted-foreground mt-2">
+                Learn about privacy attacks and defenses through interactive simulation
+              </p>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Button
