@@ -10,23 +10,25 @@ interface StageThreeProps {
   onComplete: () => void;
 }
 
-const generateRegularizationResults = (regularization: number) => {
-  // Generate 100 data points with more overlap based on regularization
-  // When regularization is high (>0.7), both accuracies decrease
-  const isOverRegularized = regularization > 0.7;
+const generateRegularizationResults = (epsilon: number) => {
+  // Higher epsilon means less privacy/noise, making distributions more distinguishable
+  // When epsilon is high (>0.7), we see more separation between the distributions
+  const isHighEpsilon = epsilon > 0.7;
   
-  const baseAccuracyTraining = isOverRegularized 
-    ? Math.max(0.5, 0.9 - (regularization * 0.7)) // Drops more sharply when over-regularized
-    : Math.max(0.65, 0.9 - (regularization * 0.4));
+  const baseAccuracyTraining = isHighEpsilon 
+    ? Math.min(0.9, 0.65 + (epsilon * 0.35)) // Higher epsilon means more distinguishable
+    : Math.min(0.85, 0.65 + (epsilon * 0.25));
     
-  const baseAccuracyNonTraining = isOverRegularized
-    ? Math.max(0.5, 0.85 - (regularization * 0.5)) // Also decreases when over-regularized
-    : Math.min(0.85, 0.6 + (regularization * 0.25));
+  const baseAccuracyNonTraining = isHighEpsilon
+    ? Math.max(0.5, 0.8 - (epsilon * 0.25)) // More separation with higher epsilon
+    : Math.max(0.55, 0.7 - (epsilon * 0.15));
   
   const data = Array.from({ length: 20 }, (_, i) => {
     const confidence = i * 5;
-    const trainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / (20 + regularization * 10), 2)));
-    const nonTrainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyNonTraining * 100) / (20 + regularization * 10), 2)));
+    // Higher epsilon means less noise/more concentrated peaks
+    const varianceFactor = 30 - (epsilon * 15); // Decreases with higher epsilon
+    const trainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / varianceFactor, 2)));
+    const nonTrainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyNonTraining * 100) / varianceFactor, 2)));
     
     return {
       confidence: `${confidence}-${confidence + 4}`,
@@ -40,7 +42,7 @@ const generateRegularizationResults = (regularization: number) => {
 };
 
 const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
-  const [regularization, setRegularization] = useState([0.2]);
+  const [epsilon, setEpsilon] = useState([0.2]);
   const [threshold, setThreshold] = useState([70]);
   const [results, setResults] = useState<any[]>([]);
   const [showColorCoded, setShowColorCoded] = useState(false);
@@ -48,7 +50,7 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
   const [attempts, setAttempts] = useState(0);
 
   const handleTrainModel = () => {
-    const newResults = generateRegularizationResults(regularization[0]);
+    const newResults = generateRegularizationResults(epsilon[0]);
     setResults(newResults);
     setIsModelTrained(true);
     setShowColorCoded(false);
@@ -100,12 +102,12 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                 defaultValue={[0.2]} 
                 max={1} 
                 step={0.1}
-                value={regularization}
-                onValueChange={setRegularization}
+                value={epsilon}
+                onValueChange={setEpsilon}
                 disabled={isModelTrained}
               />
               <span className="text-sm text-muted-foreground mt-1 block">
-                ε = {regularization[0]} (smaller values provide stronger privacy)
+                ε = {epsilon[0]} (larger values provide less privacy protection)
               </span>
             </div>
             {isModelTrained && !showColorCoded && (
@@ -128,7 +130,7 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                 <Shield className="w-4 h-4 mt-1" />
                 <p className="text-sm text-muted-foreground">
                   Differential privacy adds controlled noise to protect individual privacy. 
-                  A smaller privacy budget (ε) means more noise and stronger privacy, but may reduce model accuracy.
+                  A higher privacy budget (ε) means less noise and weaker privacy, resulting in more distinguishable distributions but less privacy protection.
                 </p>
               </div>
             </div>
@@ -222,9 +224,9 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                           Total Predictions: {calculateAccuracy()?.totalPredictions}
                         </p>
                         <p className="text-sm text-muted-foreground mt-4">
-                          {regularization[0] > 0.7 
-                            ? "The model's privacy protection is too strong, causing the predictions to become less distinguishable and less accurate."
-                            : "Differential privacy provides some protection by adding calibrated noise, reducing the model's ability to reveal membership information while maintaining some predictive power."}
+                          {epsilon[0] > 0.7 
+                            ? "The model's privacy protection is weak with high epsilon, making the predictions more distinguishable and potentially leaking more information about membership."
+                            : "Differential privacy provides protection by adding calibrated noise, reducing the model's ability to reveal membership information while maintaining some predictive power."}
                         </p>
                       </Card>
                     )}
