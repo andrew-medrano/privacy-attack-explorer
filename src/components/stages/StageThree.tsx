@@ -143,23 +143,15 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                 </Button>
               )}
               {showColorCoded && (
-                <div className="flex gap-2 justify-end">
-                  <Button 
-                    variant="destructive"
-                    onClick={handleReset}
-                    className="bg-[#ea384c] hover:bg-red-600"
-                  >
+                <>
+                  <Button variant="outline" onClick={handleReset}>
                     <RefreshCcw className="mr-2" />
-                    Restart
+                    Reset
                   </Button>
-                  <Button 
-                    variant="secondary"
-                    onClick={onComplete}
-                    className="bg-[#F2FCE2] hover:bg-green-100 text-green-800"
-                  >
+                  <Button variant="secondary" onClick={onComplete}>
                     Next Stage
                   </Button>
-                </div>
+                </>
               )}
             </div>
           </div>

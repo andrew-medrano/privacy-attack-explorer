@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { RefreshCcw, ArrowRight } from 'lucide-react';
+import { RefreshCcw } from 'lucide-react';
 import PatientCard from '../PatientCard';
 import ModelInfoCard from '../ModelInfoCard';
 import { Patient } from '@/types/patient';
@@ -76,9 +77,9 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
 
   const generateConfidenceScore = (wasInTraining: boolean) => {
     const mean = wasInTraining ? 70 : 65;
-    const noise = (Math.random() - 0.5) * 10;
+    const noise = (Math.random() - 0.5) * 10; // Adds random noise between -5 and +5
     const score = Math.round(mean + noise);
-    return Math.min(Math.max(score, 50), 95);
+    return Math.min(Math.max(score, 50), 95); // Clamp between 50 and 95
   };
 
   const handlePatientSelect = (id: number) => {
@@ -112,7 +113,7 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
     const selectedPatients = patients.filter(p => p.selected);
     const correctGuesses = selectedPatients.filter(p => p.wasInTraining).length;
     const incorrectGuesses = selectedPatients.filter(p => !p.wasInTraining).length;
-    const accuracy = (correctGuesses / 2) * 100;
+    const accuracy = (correctGuesses / 2) * 100; // 2 is the number of actual training samples
 
     setShowResults(true);
     toast({
@@ -189,9 +190,8 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
               <RefreshCcw className="mr-2" />
               Try Again
             </Button>
-            <Button onClick={onComplete} className="bg-[#F2FCE2] hover:bg-green-100 text-green-800">
+            <Button onClick={onComplete}>
               Next Stage
-              <ArrowRight className="ml-2" />
             </Button>
           </div>
         )}
