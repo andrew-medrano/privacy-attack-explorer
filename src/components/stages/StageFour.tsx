@@ -6,20 +6,20 @@ import { Slider } from "@/components/ui/slider";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Shield } from 'lucide-react';
 
-interface StageThreeProps {
+interface StageFourProps {
   onComplete: () => void;
 }
 
-const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
-  const [k, setK] = useState([2]);
+const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
+  const [epsilon, setEpsilon] = useState([1]);
   const [results, setResults] = useState<any[]>([]);
 
-  const handleApplyDefense = () => {
-    // Generate mock results showing k-anonymity impact
+  const handleApplyDP = () => {
+    // Simulate DP impact with mock data
     const newResults = Array.from({ length: 10 }, (_, i) => ({
-      feature: `F${i + 1}`,
-      rawAccuracy: 0.8 - (i * 0.05),
-      anonymizedAccuracy: Math.max(0.3, 0.8 - (i * 0.05) - (k[0] * 0.1)),
+      query: i + 1,
+      privacyLevel: Math.max(0, 1 - (epsilon[0] * 0.1)),
+      utilityLoss: Math.min(1, (1 / epsilon[0]) * 0.5),
     }));
     setResults(newResults);
     setTimeout(() => {
@@ -29,67 +29,67 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
 
   return (
     <div className="w-full p-6">
-      <h2 className="text-2xl font-bold mb-4">Stage 3: K-Anonymity Defense</h2>
+      <h2 className="text-2xl font-bold mb-4">Stage 4: Differential Privacy</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Privacy Settings</h3>
           <div className="space-y-6">
             <div>
-              <label className="text-sm font-medium mb-2 block">K-Anonymity Level</label>
+              <label className="text-sm font-medium mb-2 block">Epsilon (ε)</label>
               <Slider 
-                defaultValue={[2]} 
+                defaultValue={[1]} 
                 max={10} 
-                step={1}
-                value={k}
-                onValueChange={setK}
+                step={0.1}
+                value={epsilon}
+                onValueChange={setEpsilon}
               />
               <span className="text-sm text-muted-foreground mt-1 block">
-                k = {k[0]} (higher values provide stronger anonymity)
+                ε = {epsilon[0]} (smaller values = stronger privacy)
               </span>
             </div>
             <div className="p-4 bg-secondary/10 rounded-lg">
               <div className="flex gap-2 items-start">
                 <Shield className="w-4 h-4 mt-1" />
                 <p className="text-sm text-muted-foreground">
-                  K-anonymity ensures that each record is indistinguishable from at least k-1 other records. 
-                  This is achieved by generalizing or suppressing certain feature values.
+                  Differential privacy adds controlled noise to protect individual privacy while maintaining overall utility. 
+                  Adjust epsilon to see how different noise levels affect the trade-off between privacy and utility.
                 </p>
               </div>
             </div>
-            <Button className="w-full" onClick={handleApplyDefense}>
-              Apply K-Anonymity
+            <Button className="w-full" onClick={handleApplyDP}>
+              Apply Privacy Defense
             </Button>
           </div>
         </Card>
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Attack Success Rate Comparison</h3>
+          <h3 className="text-lg font-semibold mb-4">Privacy-Utility Trade-off</h3>
           <div className="h-64">
             {results.length > 0 ? (
               <AreaChart width={400} height={250} data={results}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="feature" />
+                <XAxis dataKey="query" />
                 <YAxis />
                 <Tooltip />
                 <Area 
                   type="monotone" 
-                  dataKey="rawAccuracy" 
-                  stroke="#ea384c" 
-                  fill="#ea384c" 
-                  fillOpacity={0.3}
-                  name="Without Defense"
+                  dataKey="privacyLevel" 
+                  stroke="#9b87f5" 
+                  fill="#9b87f5" 
+                  fillOpacity={0.3} 
+                  name="Privacy Level"
                 />
                 <Area 
                   type="monotone" 
-                  dataKey="anonymizedAccuracy" 
+                  dataKey="utilityLoss" 
                   stroke="#1EAEDB" 
                   fill="#1EAEDB" 
                   fillOpacity={0.3}
-                  name="With K-Anonymity"
+                  name="Utility Loss"
                 />
               </AreaChart>
             ) : (
               <div className="h-full bg-secondary/10 rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">Apply defense to see comparison</p>
+                <p className="text-muted-foreground">Apply privacy defense to see impact</p>
               </div>
             )}
           </div>
@@ -99,4 +99,4 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
   );
 };
 
-export default StageThree;
+export default StageFour;
