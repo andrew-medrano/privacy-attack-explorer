@@ -76,11 +76,11 @@ const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
                   dataKey="epsilon" 
-                  label={{ value: 'Privacy Budget (ε)', position: 'bottom', offset: 0 }}
+                  label={{ value: 'Privacy Budget (ε)', position: 'bottom', offset: 5 }}
                 />
                 <YAxis label={{ value: 'Score (%)', angle: -90, position: 'insideLeft' }} />
                 <Tooltip />
-                <Legend />
+                <Legend verticalAlign="top" height={36} />
                 <Line 
                   type="monotone" 
                   dataKey="accuracy" 

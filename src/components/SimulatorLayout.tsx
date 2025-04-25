@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Shield, Database, FileSearch } from 'lucide-react';
+import { Shield, FileText } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface SimulatorLayoutProps {
@@ -16,7 +16,7 @@ const SimulatorLayout: React.FC<SimulatorLayoutProps> = ({
   currentStage,
   onStageSelect 
 }) => {
-  const progress = (currentStage / 3) * 100;
+  const progress = (currentStage / 4) * 100;
 
   const handleStageClick = (stage: number) => {
     if (onStageSelect) {
@@ -54,6 +54,13 @@ const SimulatorLayout: React.FC<SimulatorLayoutProps> = ({
                 className="px-2 py-1"
               >
                 Differential Privacy
+              </Button>
+              <Button
+                variant={currentStage === 4 ? "default" : "ghost"}
+                onClick={() => handleStageClick(4)}
+                className="px-2 py-1"
+              >
+                Summary
               </Button>
             </div>
           </div>
