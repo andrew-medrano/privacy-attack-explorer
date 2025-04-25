@@ -26,7 +26,8 @@ const generateRegularizationResults = (epsilon: number) => {
     const confidence = i * 5;
     
     // Base variance gets tighter (more concentrated) as epsilon increases
-    const varianceFactor = 30 - (epsilon * 15); // 30 down to 15
+    // Reduced by half to make distributions tighter (from 30-15 to 15-7.5)
+    const varianceFactor = (15 - (epsilon * 7.5)); // 15 down to 7.5
     
     // For training data - higher mean with higher epsilon
     const trainingCount = Math.floor(30 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / varianceFactor, 2)));
