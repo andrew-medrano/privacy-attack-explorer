@@ -26,13 +26,15 @@ const generatePatients = (count: number): Patient[] => {
     age: Math.floor(Math.random() * 50) + 25,
     bloodPressure: `${Math.floor(Math.random() * 40) + 120}/${Math.floor(Math.random() * 20) + 70}`,
     confidence: 0,
-    wasInTraining: i < 20, // 20% of patients are in training set
+    wasInTraining: i < count * 0.5, // 50% of patients are in training set
   }));
 };
 
+// More accurate confidence generation with multimodal distribution
 const generateConfidence = (wasInTraining: boolean): number => {
-  const baseMean = wasInTraining ? 70 : 65;
-  const noise = (Math.random() - 0.5) * 10;
+  // Training data has mean of 80, non-training has mean of 65
+  const baseMean = wasInTraining ? 80 : 65;
+  const noise = (Math.random() - 0.5) * 15; // More variance for clearer separation
   return Math.min(Math.max(Math.round(baseMean + noise), 50), 95);
 };
 
@@ -58,11 +60,18 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
 
   const confidenceData = useMemo(() => {
     if (!modelRun) return [];
-    const bins: { range: string; count: number }[] = [];
-    for (let i = 50; i < 95; i += 5) {
+    
+    // Create bins for histogram-like visualization
+    const bins: { range: string; count: number; trainingCount: number; nonTrainingCount: number }[] = [];
+    for (let i = 50; i < 96; i += 5) {
+      const inRange = patients.filter(p => p.confidence >= i && p.confidence < i + 5);
+      const trainingInRange = inRange.filter(p => p.wasInTraining);
+      
       bins.push({
-        range: `${i}-${i + 5}`,
-        count: patients.filter(p => p.confidence >= i && p.confidence < i + 5).length
+        range: `${i}-${i+4}`,
+        count: inRange.length,
+        trainingCount: trainingInRange.length,
+        nonTrainingCount: inRange.length - trainingInRange.length
       });
     }
     return bins;
@@ -71,7 +80,11 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
   const checkAccuracy = () => {
     const predictedPositives = patients.filter(p => p.confidence >= threshold[0]);
     const truePositives = predictedPositives.filter(p => p.wasInTraining);
-    const accuracy = (truePositives.length / predictedPositives.length) * 100;
+    
+    // Avoid division by zero
+    const accuracy = predictedPositives.length > 0 
+      ? (truePositives.length / predictedPositives.length) * 100
+      : 0;
     
     setSubmitted(true);
     toast({
@@ -88,100 +101,116 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="w-full p-4 space-y-6">
+    <div className="w-full p-4 space-y-4">
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl font-bold">Stage 2: Advanced Membership Inference</h2>
         
-        <Card className="p-4">
-          <p className="text-muted-foreground mb-4">
-            Analyze the confidence distribution of 100 patients and determine a threshold that identifies training set members.
-            Set a confidence threshold where you believe patients above that value are more likely to be from the training set.
+        <Card className="p-4 mb-4">
+          <p className="text-muted-foreground mb-2">
+            <strong>What to do:</strong> In this stage, you'll analyze a larger dataset of 100 patients.
           </p>
-          
-          <div className="flex gap-4 mb-6">
-            <Button 
-              onClick={runModel} 
-              disabled={modelRun && !submitted}
-            >
-              Run Model Predictions
-            </Button>
-            {modelRun && !submitted && (
-              <Button onClick={checkAccuracy}>
-                Check Accuracy
-              </Button>
-            )}
-            {submitted && (
-              <Button onClick={onComplete}>
-                Next Stage
-              </Button>
-            )}
-          </div>
-
-          {modelRun && (
-            <div className="space-y-6">
-              <Card className="p-4">
-                <h3 className="text-lg font-semibold mb-4">Confidence Distribution</h3>
-                <div className="h-64">
-                  <LineChart width={600} height={200} data={confidenceData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="range" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="count" stroke="#9b87f5" />
-                  </LineChart>
-                </div>
-              </Card>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Confidence Threshold</label>
-                <Slider
-                  defaultValue={[70]}
-                  max={95}
-                  min={50}
-                  step={1}
-                  value={threshold}
-                  onValueChange={setThreshold}
-                  disabled={submitted}
-                />
-                <span className="text-sm text-muted-foreground">
-                  Threshold: {threshold[0]}% confidence
-                </span>
-              </div>
-
-              <ScrollArea className="h-[400px] border rounded-md">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>Age</TableHead>
-                      <TableHead>Blood Pressure</TableHead>
-                      <TableHead>Confidence</TableHead>
-                      {submitted && <TableHead>In Training</TableHead>}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {patients.map((patient) => (
-                      <TableRow 
-                        key={patient.id}
-                        className={submitted && patient.confidence >= threshold[0] ? 
-                          (patient.wasInTraining ? 'bg-green-100' : 'bg-red-100') : ''
-                        }
-                      >
-                        <TableCell>{patient.id}</TableCell>
-                        <TableCell>{patient.age}</TableCell>
-                        <TableCell>{patient.bloodPressure}</TableCell>
-                        <TableCell>{patient.confidence}%</TableCell>
-                        {submitted && (
-                          <TableCell>{patient.wasInTraining ? 'Yes' : 'No'}</TableCell>
-                        )}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </ScrollArea>
-            </div>
-          )}
+          <ol className="list-decimal pl-5 space-y-1 text-muted-foreground">
+            <li>Examine the patient data in the table below</li>
+            <li>Run the model predictions to see confidence scores</li>
+            <li>Study the distribution chart - notice the two peaks (bimodal distribution)</li>
+            <li>Set a confidence threshold where you believe patients above that value are likely from the training set</li>
+            <li>Check your accuracy to see how well you did</li>
+          </ol>
+          <p className="text-muted-foreground mt-2 italic">
+            <strong>Hint:</strong> Training data typically gets higher confidence scores from the model.
+          </p>
         </Card>
+          
+        <div className="flex gap-4 mb-4">
+          <Button 
+            onClick={runModel} 
+            disabled={modelRun && !submitted}
+          >
+            Run Model Predictions
+          </Button>
+          {modelRun && !submitted && (
+            <Button onClick={checkAccuracy}>
+              Check Accuracy
+            </Button>
+          )}
+          {submitted && (
+            <Button onClick={onComplete}>
+              Next Stage
+            </Button>
+          )}
+        </div>
+
+        {modelRun && (
+          <div className="space-y-6">
+            <Card className="p-4">
+              <h3 className="text-lg font-semibold mb-4">Confidence Distribution</h3>
+              <div className="h-64">
+                <LineChart width={600} height={200} data={confidenceData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="range" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line 
+                    type="monotone" 
+                    dataKey="count" 
+                    name="Total Patients" 
+                    stroke="#9b87f5" 
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </div>
+            </Card>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Confidence Threshold</label>
+              <Slider
+                defaultValue={[70]}
+                max={95}
+                min={50}
+                step={1}
+                value={threshold}
+                onValueChange={setThreshold}
+                disabled={submitted}
+              />
+              <span className="text-sm text-muted-foreground">
+                Threshold: {threshold[0]}% confidence
+              </span>
+            </div>
+          </div>
+        )}
+
+        <ScrollArea className="h-[400px] border rounded-md">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Age</TableHead>
+                <TableHead>Blood Pressure</TableHead>
+                <TableHead>Confidence</TableHead>
+                {submitted && <TableHead>In Training</TableHead>}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {patients.map((patient) => (
+                <TableRow 
+                  key={patient.id}
+                  className={modelRun && submitted && patient.confidence >= threshold[0] ? 
+                    (patient.wasInTraining ? 'bg-green-100' : 'bg-red-100') : ''
+                  }
+                >
+                  <TableCell>{patient.id}</TableCell>
+                  <TableCell>{patient.age}</TableCell>
+                  <TableCell>{patient.bloodPressure}</TableCell>
+                  <TableCell>{modelRun ? `${patient.confidence}%` : 'Not available'}</TableCell>
+                  {submitted && (
+                    <TableCell>{patient.wasInTraining ? 'Yes' : 'No'}</TableCell>
+                  )}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </ScrollArea>
       </div>
     </div>
   );
