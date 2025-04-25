@@ -3,7 +3,7 @@ import React from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { RefreshCcw, Shield, TrendingUp } from 'lucide-react';
+import { RefreshCcw, Shield, TrendingUp, FileText } from 'lucide-react';
 
 interface SummaryProps {
   onRestart: () => void;
@@ -42,7 +42,7 @@ const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
             
             <div className="flex gap-2 items-start">
               <div className="mt-1 bg-purple-100 p-2 rounded-full">
-                <Database className="w-4 h-4 text-purple-600" />
+                <FileText className="w-4 h-4 text-purple-600" />
               </div>
               <div>
                 <h4 className="font-medium">Stage 2: Shadow Models</h4>
