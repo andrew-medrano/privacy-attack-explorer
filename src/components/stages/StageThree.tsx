@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,27 +11,28 @@ interface StageThreeProps {
 }
 
 const generateRegularizationResults = (epsilon: number) => {
-  // Higher epsilon means less privacy/noise, making distributions more distinguishable
-  // When epsilon is high (>0.7), we see more separation between the distributions
-  const isHighEpsilon = epsilon > 0.7;
+  // With epsilon = 0, both distributions should be nearly identical
+  // As epsilon increases, training data should show higher confidence values
   
-  const baseAccuracyTraining = isHighEpsilon 
-    ? Math.min(0.9, 0.65 + (epsilon * 0.35)) // Higher epsilon means more distinguishable
-    : Math.min(0.85, 0.65 + (epsilon * 0.25));
-    
-  const baseAccuracyNonTraining = isHighEpsilon
-    ? Math.max(0.5, 0.8 - (epsilon * 0.25)) // More separation with higher epsilon
-    : Math.max(0.55, 0.7 - (epsilon * 0.15));
+  // Calculate the separation factor based on epsilon
+  // When epsilon is 0, separation is 0 (identical distributions)
+  // When epsilon is high, separation increases
+  const separationFactor = epsilon * 20; // 0 to 20% shift
+  
+  const baseAccuracyTraining = 0.65 + (epsilon * 0.25); // Increases with epsilon: 0.65 to 0.9
+  const baseAccuracyNonTraining = 0.65 - (epsilon * 0.1); // Decreases with epsilon: 0.65 to 0.55
   
   const data = Array.from({ length: 20 }, (_, i) => {
     const confidence = i * 5;
-    // Higher epsilon means less noise/more concentrated peaks
-    const varianceFactor = 30 - (epsilon * 15); // Decreases with higher epsilon
     
-    // Calculate base counts with training being 20% of total
-    const totalCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / varianceFactor, 2)));
-    const trainingCount = Math.floor(totalCount * 0.2); // 20% of the total
-    const nonTrainingCount = Math.floor(totalCount * 0.8); // 80% of the total
+    // Base variance gets tighter (more concentrated) as epsilon increases
+    const varianceFactor = 30 - (epsilon * 15); // 30 down to 15
+    
+    // For training data - higher mean with higher epsilon
+    const trainingCount = Math.floor(30 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / varianceFactor, 2)));
+    
+    // For non-training data - stays close to original mean
+    const nonTrainingCount = Math.floor(70 * Math.exp(-Math.pow((confidence - baseAccuracyNonTraining * 100) / varianceFactor, 2)));
     
     return {
       confidence: `${confidence}-${confidence + 4}`,
