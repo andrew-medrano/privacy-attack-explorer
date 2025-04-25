@@ -19,7 +19,7 @@ const SAMPLE_PATIENTS: Patient[] = [
     age: 65,
     bloodPressure: "140/90",
     cholesterol: "High",
-    confidence: 98,
+    confidence: 0,
     wasInTraining: true,
   },
   {
@@ -28,7 +28,7 @@ const SAMPLE_PATIENTS: Patient[] = [
     age: 45,
     bloodPressure: "120/80",
     cholesterol: "Normal",
-    confidence: 65,
+    confidence: 0,
     wasInTraining: false,
   },
   {
@@ -37,7 +37,7 @@ const SAMPLE_PATIENTS: Patient[] = [
     age: 72,
     bloodPressure: "160/95",
     cholesterol: "High",
-    confidence: 99,
+    confidence: 0,
     wasInTraining: true,
   },
   {
@@ -46,7 +46,7 @@ const SAMPLE_PATIENTS: Patient[] = [
     age: 50,
     bloodPressure: "130/85",
     cholesterol: "Normal",
-    confidence: 70,
+    confidence: 0,
     wasInTraining: false,
   },
   {
@@ -55,18 +55,23 @@ const SAMPLE_PATIENTS: Patient[] = [
     age: 68,
     bloodPressure: "150/92",
     cholesterol: "High",
-    confidence: 95,
+    confidence: 0,
     wasInTraining: true,
   },
 ];
 
 const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
-  const [patients, setPatients] = useState<Patient[]>(
-    SAMPLE_PATIENTS.map(p => ({ ...p, confidence: 0 }))
-  );
+  const [patients, setPatients] = useState<Patient[]>(SAMPLE_PATIENTS);
   const [showResults, setShowResults] = useState(false);
   const [predictionsRun, setPredictionsRun] = useState(false);
   const { toast } = useToast();
+
+  const generateConfidenceScore = (wasInTraining: boolean) => {
+    const mean = wasInTraining ? 70 : 65;
+    const noise = (Math.random() - 0.5) * 10; // Adds random noise between -5 and +5
+    const score = Math.round(mean + noise);
+    return Math.min(Math.max(score, 50), 95); // Clamp between 50 and 95
+  };
 
   const handlePatientSelect = (id: number) => {
     if (!predictionsRun) {
@@ -85,10 +90,13 @@ const StageOne: React.FC<StageOneProps> = ({ onComplete }) => {
 
   const runPredictions = () => {
     setPredictionsRun(true);
-    setPatients(SAMPLE_PATIENTS);
+    setPatients(patients.map(p => ({
+      ...p,
+      confidence: generateConfidenceScore(p.wasInTraining)
+    })));
     toast({
       title: "Model Predictions Complete",
-      description: "The model has generated confidence scores for each patient. Look for unusually high confidence scores!",
+      description: "The model has generated confidence scores for each patient. Look for patterns in the confidence scores!",
     });
   };
 
