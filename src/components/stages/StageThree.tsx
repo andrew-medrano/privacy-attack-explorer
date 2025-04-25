@@ -27,14 +27,17 @@ const generateRegularizationResults = (epsilon: number) => {
     const confidence = i * 5;
     // Higher epsilon means less noise/more concentrated peaks
     const varianceFactor = 30 - (epsilon * 15); // Decreases with higher epsilon
-    const trainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / varianceFactor, 2)));
-    const nonTrainingCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyNonTraining * 100) / varianceFactor, 2)));
+    
+    // Calculate base counts with training being 20% of total
+    const totalCount = Math.floor(100 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / varianceFactor, 2)));
+    const trainingCount = Math.floor(totalCount * 0.2); // 20% of the total
+    const nonTrainingCount = Math.floor(totalCount * 0.8); // 80% of the total
     
     return {
       confidence: `${confidence}-${confidence + 4}`,
       training: trainingCount,
       nonTraining: nonTrainingCount,
-      total: trainingCount + nonTrainingCount // Combined count for initial view
+      total: trainingCount + nonTrainingCount
     };
   });
 
