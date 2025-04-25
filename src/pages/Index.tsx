@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SimulatorLayout from '@/components/SimulatorLayout';
 import StageOne from '@/components/stages/StageOne';
@@ -68,7 +67,7 @@ const Index = () => {
         {currentStage === 4 && (
           <div className="flex justify-end mb-4">
             <Button 
-              variant="outline" 
+              variant="destructive" 
               onClick={handleReset}
             >
               <RefreshCcw className="mr-2" />

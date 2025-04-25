@@ -85,15 +85,10 @@ const StageFour: React.FC<StageFourProps> = ({ onComplete }) => {
                 {attacked ? "Try Again" : "Apply Privacy Defense"}
               </Button>
               {attacked && (
-                <>
-                  <Button variant="outline" onClick={handleReset}>
-                    <RefreshCcw className="mr-2" />
-                    Reset
-                  </Button>
-                  <Button variant="secondary" onClick={onComplete}>
-                    Complete Tutorial
-                  </Button>
-                </>
+                <Button variant="outline" onClick={handleReset}>
+                  <RefreshCcw className="mr-2" />
+                  Reset
+                </Button>
               )}
             </div>
           </div>
