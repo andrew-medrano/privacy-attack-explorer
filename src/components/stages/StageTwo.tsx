@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -6,6 +6,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
+// Import the pre-generated data
+import stageData from "@/data/generated/stage2_data.json";
 
 interface StageTwoProps {
   onComplete: () => void;
@@ -15,64 +17,41 @@ interface Patient {
   id: number;
   age: number;
   bloodPressure: string;
+  cholesterol: number;
+  glucose: number;
+  heartRate: number;
+  hasDiabetes: boolean;
+  hasHypertension: boolean;
   confidence: number;
   wasInTraining: boolean;
 }
 
-const generatePatients = (count: number): Patient[] => {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i + 1,
-    age: Math.floor(Math.random() * 50) + 25,
-    bloodPressure: `${Math.floor(Math.random() * 40) + 120}/${Math.floor(Math.random() * 20) + 70}`,
-    confidence: 0,
-    wasInTraining: i < count * 0.2, // 20% of patients are in training set
-  }));
-};
-
-const generateConfidence = (wasInTraining: boolean): number => {
-  const baseMean = wasInTraining ? 90 : 65; // Changed from 80 to 90 for training data
-  const noise = (Math.random() - 0.5) * 15;
-  return Math.min(Math.max(Math.round(baseMean + noise), 50), 95);
-};
-
 const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
-  const [patients, setPatients] = useState<Patient[]>(generatePatients(100));
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [confidenceData, setConfidenceData] = useState<any[]>([]);
   const [threshold, setThreshold] = useState([70]);
   const [modelRun, setModelRun] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState<{ accuracy: number; truePositives: number; totalPredicted: number } | null>(null);
   const { toast } = useToast();
 
+  // Load data when component mounts
+  useEffect(() => {
+    if (stageData) {
+      setPatients(stageData.patients);
+      setConfidenceData(stageData.confidenceBins);
+      // Optional: Set threshold to the optimal one from data
+      // setThreshold([stageData.optimalThreshold]);
+    }
+  }, []);
+
   const runModel = () => {
-    const updatedPatients = patients.map(patient => ({
-      ...patient,
-      confidence: generateConfidence(patient.wasInTraining)
-    }));
-    setPatients(updatedPatients);
     setModelRun(true);
     toast({
       title: "Model predictions complete",
       description: "Analyze the confidence distribution to set your threshold.",
     });
   };
-
-  const confidenceData = useMemo(() => {
-    if (!modelRun) return [];
-    
-    const bins: { range: string; count: number; trainingCount: number; nonTrainingCount: number }[] = [];
-    for (let i = 50; i < 96; i += 5) {
-      const inRange = patients.filter(p => p.confidence >= i && p.confidence < i + 5);
-      const trainingInRange = inRange.filter(p => p.wasInTraining);
-      
-      bins.push({
-        range: `${i}-${i+4}`,
-        count: inRange.length,
-        trainingCount: trainingInRange.length,
-        nonTrainingCount: inRange.length - trainingInRange.length
-      });
-    }
-    return bins;
-  }, [patients, modelRun]);
 
   const checkAccuracy = () => {
     const predictedPositives = patients.filter(p => p.confidence >= threshold[0]);
@@ -188,11 +167,10 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
                     </p>
                     <div className="mt-6 p-4 bg-muted/50 rounded-lg">
                       <p className="text-sm text-muted-foreground">
-                        With auxiliary data (age and blood pressure), the model shows a clearer 
-                        separation between training and non-training data. This additional information 
-                        makes it easier to distinguish between patients who were part of the training 
-                        set (clustering around 90% confidence) and those who weren't (around 65% confidence), 
-                        demonstrating how auxiliary data can enhance membership inference attacks.
+                        With multiple features (age, blood pressure, cholesterol, glucose, heart rate, and medical conditions), 
+                        the model shows a clearer separation between training and non-training data. This demonstrates how 
+                        richer auxiliary data can enhance membership inference attacks by creating more distinguishable patterns 
+                        in prediction confidence.
                       </p>
                     </div>
                   </div>
@@ -225,6 +203,8 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
                 <TableHead>ID</TableHead>
                 <TableHead>Age</TableHead>
                 <TableHead>Blood Pressure</TableHead>
+                <TableHead>Cholesterol</TableHead>
+                <TableHead>Risk Factors</TableHead>
                 <TableHead>Confidence</TableHead>
                 {submitted && <TableHead>In Training</TableHead>}
               </TableRow>
@@ -240,7 +220,12 @@ const StageTwo: React.FC<StageTwoProps> = ({ onComplete }) => {
                   <TableCell>{patient.id}</TableCell>
                   <TableCell>{patient.age}</TableCell>
                   <TableCell>{patient.bloodPressure}</TableCell>
-                  <TableCell>{modelRun ? `${patient.confidence}%` : 'Not available'}</TableCell>
+                  <TableCell>{patient.cholesterol}</TableCell>
+                  <TableCell>
+                    {patient.hasDiabetes && <span className="mr-1 bg-red-100 text-red-800 text-xs px-1 rounded">Diabetes</span>}
+                    {patient.hasHypertension && <span className="bg-orange-100 text-orange-800 text-xs px-1 rounded">Hypertension</span>}
+                  </TableCell>
+                  <TableCell>{modelRun ? `${patient.confidence.toFixed(1)}%` : 'Not available'}</TableCell>
                   {submitted && (
                     <TableCell>{patient.wasInTraining ? 'Yes' : 'No'}</TableCell>
                   )}

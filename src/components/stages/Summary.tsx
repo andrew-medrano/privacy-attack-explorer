@@ -1,24 +1,25 @@
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { RefreshCcw, Shield, TrendingUp, FileText } from 'lucide-react';
+// Import pre-calculated data
+import stageData from "@/data/generated/stage3_data.json";
 
 interface SummaryProps {
   onRestart: () => void;
 }
 
-const privacyData = [
-  { epsilon: 0.1, accuracy: 65, privacy: 95 },
-  { epsilon: 0.3, accuracy: 75, privacy: 85 },
-  { epsilon: 0.5, accuracy: 82, privacy: 75 },
-  { epsilon: 0.7, accuracy: 87, privacy: 65 },
-  { epsilon: 0.9, accuracy: 90, privacy: 55 },
-  { epsilon: 1.1, accuracy: 92, privacy: 45 },
-];
-
 const Summary: React.FC<SummaryProps> = ({ onRestart }) => {
+  const [privacyData, setPrivacyData] = useState<any[]>([]);
+
+  // Load data when component mounts
+  useEffect(() => {
+    if (stageData && stageData.tradeoffData) {
+      setPrivacyData(stageData.tradeoffData);
+    }
+  }, []);
+
   return (
     <div className="w-full p-6 space-y-6">
       <h2 className="text-2xl font-bold">Summary: Privacy vs Utility Trade-off</h2>

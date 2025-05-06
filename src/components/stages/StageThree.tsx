@@ -1,50 +1,15 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, BarChart, Bar } from 'recharts';
-import { Sliders, RefreshCcw, Shield } from 'lucide-react';
+import { RefreshCcw, Shield } from 'lucide-react';
+// Import pre-calculated data
+import stageData from "@/data/generated/stage3_data.json";
 
 interface StageThreeProps {
   onComplete: () => void;
 }
-
-const generateRegularizationResults = (epsilon: number) => {
-  // With epsilon = 0, both distributions should be nearly identical
-  // As epsilon increases, training data should show higher confidence values
-  
-  // Calculate the separation factor based on epsilon
-  // When epsilon is 0, separation is 0 (identical distributions)
-  // When epsilon is high, separation increases
-  const separationFactor = epsilon * 20; // 0 to 20% shift
-  
-  const baseAccuracyTraining = 0.65 + (epsilon * 0.25); // Increases with epsilon: 0.65 to 0.9
-  const baseAccuracyNonTraining = 0.65 - (epsilon * 0.1); // Decreases with epsilon: 0.65 to 0.55
-  
-  const data = Array.from({ length: 20 }, (_, i) => {
-    const confidence = i * 5;
-    
-    // Base variance gets tighter (more concentrated) as epsilon increases
-    // Reduced by half to make distributions tighter (from 30-15 to 15-7.5)
-    const varianceFactor = (15 - (epsilon * 7.5)); // 15 down to 7.5
-    
-    // For training data - higher mean with higher epsilon
-    const trainingCount = Math.floor(30 * Math.exp(-Math.pow((confidence - baseAccuracyTraining * 100) / varianceFactor, 2)));
-    
-    // For non-training data - stays close to original mean
-    const nonTrainingCount = Math.floor(70 * Math.exp(-Math.pow((confidence - baseAccuracyNonTraining * 100) / varianceFactor, 2)));
-    
-    return {
-      confidence: `${confidence}-${confidence + 4}`,
-      training: trainingCount,
-      nonTraining: nonTrainingCount,
-      total: trainingCount + nonTrainingCount
-    };
-  });
-
-  return data;
-};
 
 const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
   const [epsilon, setEpsilon] = useState([0.2]);
@@ -53,10 +18,22 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
   const [showColorCoded, setShowColorCoded] = useState(false);
   const [isModelTrained, setIsModelTrained] = useState(false);
   const [attempts, setAttempts] = useState(0);
+  const [epsilonResults, setEpsilonResults] = useState<Record<string, any>>({});
+
+  // Load data when component mounts
+  useEffect(() => {
+    if (stageData) {
+      setEpsilonResults(stageData.epsilonResults);
+    }
+  }, []);
 
   const handleTrainModel = () => {
-    const newResults = generateRegularizationResults(epsilon[0]);
-    setResults(newResults);
+    // Get data for the selected epsilon
+    const epsilonKey = epsilon[0].toString();
+    const selectedEpsilonData = epsilonResults[epsilonKey] || epsilonResults["0.2"];
+    if (selectedEpsilonData) {
+      setResults(selectedEpsilonData.bins);
+    }
     setIsModelTrained(true);
     setShowColorCoded(false);
   };
@@ -74,24 +51,18 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
 
   const calculateAccuracy = () => {
     if (!results.length) return null;
-
-    const thresholdValue = threshold[0];
-    let truePositives = 0;
-    let totalPredictions = 0;
-
-    results.forEach(point => {
-      const confidenceMin = parseInt(point.confidence.split('-')[0]);
-      if (confidenceMin >= thresholdValue) {
-        truePositives += point.training;
-        totalPredictions += point.training + point.nonTraining;
-      }
-    });
-
-    return {
-      accuracy: ((truePositives / totalPredictions) * 100).toFixed(1),
-      truePositives,
-      totalPredictions
-    };
+    
+    const epsilonKey = epsilon[0].toString();
+    const thresholds = epsilonResults[epsilonKey]?.thresholds || [];
+    
+    // Find the closest threshold in our pre-calculated data
+    const closestThreshold = thresholds.reduce((closest, current) => {
+      return Math.abs(current.threshold - threshold[0]) < Math.abs(closest.threshold - threshold[0])
+        ? current
+        : closest;
+    }, { threshold: 50, accuracy: 0, truePositives: 0, totalPredictions: 0 });
+    
+    return closestThreshold;
   };
 
   return (
@@ -222,9 +193,9 @@ const StageThree: React.FC<StageThreeProps> = ({ onComplete }) => {
                       <Card className="p-4 mt-4">
                         <h4 className="font-semibold mb-2">Attack Results</h4>
                         <p className="text-sm">
-                          Accuracy: {calculateAccuracy()?.accuracy}%
+                          Accuracy: {calculateAccuracy()?.accuracy.toFixed(1)}%
                           <br />
-                          <span className="text-muted-foreground">(20% is baseline accuracy from random guessing, as 20% of data was in training set)</span>
+                          <span className="text-muted-foreground">(20% is baseline accuracy if you guess training for all points above any threshold, as 20% of data was in training set)</span>
                           <br />
                           True Positives: {calculateAccuracy()?.truePositives}
                           <br />

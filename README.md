@@ -1,73 +1,82 @@
-# Welcome to your Lovable project
+# Privacy Attack Explorer
 
-## Project info
+A hands-on educational tool to explore and understand privacy vulnerabilities in machine learning models through interactive simulations of membership inference attacks and differential privacy.
 
-**URL**: https://lovable.dev/projects/d45b9828-7b90-455d-999e-05c719457353
+## Project Overview
 
-## How can I edit this code?
+This project demonstrates:
+1. **Basic membership inference attacks** - How models can inadvertently reveal if specific data was used during training
+2. **Advanced attacks with shadow models** - Using auxiliary data to improve attack accuracy
+3. **Differential privacy protection** - Applying noise to model outputs to protect against privacy leaks
 
-There are several ways of editing your application.
+The application guides users through three progressive stages, allowing experimentation with different attack parameters and privacy settings to understand the fundamental trade-off between privacy and utility in machine learning.
 
-**Use Lovable**
+## Data Generation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d45b9828-7b90-455d-999e-05c719457353) and start prompting.
+This project uses synthetic patient health data to simulate privacy attacks:
 
-Changes made via Lovable will be committed automatically to this repo.
+- Data is pre-calculated using a Python script that generates realistic patient records with features like age, blood pressure, and medical conditions
+- The script trains machine learning models on subsets of the data and calculates confidence scores
+- For differential privacy experiments, varying levels of noise are applied based on different epsilon values
 
-**Use your preferred IDE**
+To regenerate the synthetic data:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+```bash
+# Install Python dependencies first
+pip install -r src/data/requirements.txt
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Then generate the data
+npm run generate-data
+```
 
-Follow these steps:
+The data generation process creates three JSON files in `src/data/generated/` that power the interactive visualizations.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Project Structure
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```
+privacy-attack-explorer/
+├── src/
+│   ├── components/        # UI components
+│   │   ├── stages/        # Main stage components for the three attack scenarios
+│   │   └── ui/            # Reusable UI components using shadcn/ui
+│   ├── data/              # Data generation
+│   │   ├── generate_synthetic_data.py  # Python script for data generation
+│   │   └── generated/     # Generated JSON files
+│   ├── hooks/             # React hooks
+│   └── types/             # TypeScript type definitions
+└── public/                # Public assets
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Getting Started
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+1. Clone the repository and install dependencies:
+
+```bash
+git clone <repository-url>
+cd privacy-attack-explorer
+npm install
+```
+
+2. Generate the synthetic data (requires Python 3.7+ with required packages):
+
+```bash
+npm run generate-data
+```
+
+3. Start the development server:
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to the URL shown in the terminal (typically http://localhost:5173/)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Technologies
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
+- React 18
 - TypeScript
-- React
-- shadcn-ui
+- Vite
+- shadcn/ui components
 - Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/d45b9828-7b90-455d-999e-05c719457353) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Recharts for data visualization
+- Python (NumPy, Pandas, scikit-learn) for data generation

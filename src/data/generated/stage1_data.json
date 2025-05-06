@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Patient 1",
+    "age": 65,
+    "blood_pressure": "140/90",
+    "cholesterol": "High",
+    "confidence": 71,
+    "wasInTraining": true
+  },
+  {
+    "id": 2,
+    "name": "Patient 2",
+    "age": 45,
+    "blood_pressure": "120/80",
+    "cholesterol": "Normal",
+    "confidence": 65,
+    "wasInTraining": false
+  },
+  {
+    "id": 3,
+    "name": "Patient 3",
+    "age": 72,
+    "blood_pressure": "160/95",
+    "cholesterol": "High",
+    "confidence": 67,
+    "wasInTraining": false
+  },
+  {
+    "id": 4,
+    "name": "Patient 4",
+    "age": 50,
+    "blood_pressure": "130/85",
+    "cholesterol": "Normal",
+    "confidence": 75,
+    "wasInTraining": true
+  },
+  {
+    "id": 5,
+    "name": "Patient 5",
+    "age": 68,
+    "blood_pressure": "150/92",
+    "cholesterol": "High",
+    "confidence": 64,
+    "wasInTraining": false
+  },
+  {
+    "id": 6,
+    "name": "Patient 6",
+    "age": 55,
+    "blood_pressure": "145/88",
+    "cholesterol": "Normal",
+    "confidence": 64,
+    "wasInTraining": false
+  }
+]

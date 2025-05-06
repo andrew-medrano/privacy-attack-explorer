@@ -1,0 +1,2490 @@
+{
+  "epsilonResults": {
+    "0.1": {
+      "bins": [
+        {
+          "confidence": "0-4",
+          "training": 5,
+          "nonTraining": 28,
+          "total": 33
+        },
+        {
+          "confidence": "5-9",
+          "training": 23,
+          "nonTraining": 104,
+          "total": 127
+        },
+        {
+          "confidence": "10-14",
+          "training": 58,
+          "nonTraining": 238,
+          "total": 296
+        },
+        {
+          "confidence": "15-19",
+          "training": 105,
+          "nonTraining": 442,
+          "total": 547
+        },
+        {
+          "confidence": "20-24",
+          "training": 159,
+          "nonTraining": 605,
+          "total": 764
+        },
+        {
+          "confidence": "25-29",
+          "training": 204,
+          "nonTraining": 846,
+          "total": 1050
+        },
+        {
+          "confidence": "30-34",
+          "training": 272,
+          "nonTraining": 1098,
+          "total": 1370
+        },
+        {
+          "confidence": "35-39",
+          "training": 305,
+          "nonTraining": 1292,
+          "total": 1597
+        },
+        {
+          "confidence": "40-44",
+          "training": 345,
+          "nonTraining": 1431,
+          "total": 1776
+        },
+        {
+          "confidence": "45-49",
+          "training": 419,
+          "nonTraining": 1638,
+          "total": 2057
+        },
+        {
+          "confidence": "50-54",
+          "training": 396,
+          "nonTraining": 1607,
+          "total": 2003
+        },
+        {
+          "confidence": "55-59",
+          "training": 385,
+          "nonTraining": 1502,
+          "total": 1887
+        },
+        {
+          "confidence": "60-64",
+          "training": 338,
+          "nonTraining": 1402,
+          "total": 1740
+        },
+        {
+          "confidence": "65-69",
+          "training": 292,
+          "nonTraining": 1150,
+          "total": 1442
+        },
+        {
+          "confidence": "70-74",
+          "training": 240,
+          "nonTraining": 914,
+          "total": 1154
+        },
+        {
+          "confidence": "75-79",
+          "training": 185,
+          "nonTraining": 698,
+          "total": 883
+        },
+        {
+          "confidence": "80-84",
+          "training": 121,
+          "nonTraining": 528,
+          "total": 649
+        },
+        {
+          "confidence": "85-89",
+          "training": 78,
+          "nonTraining": 303,
+          "total": 381
+        },
+        {
+          "confidence": "90-94",
+          "training": 54,
+          "nonTraining": 134,
+          "total": 188
+        },
+        {
+          "confidence": "95-99",
+          "training": 16,
+          "nonTraining": 40,
+          "total": 56
+        },
+        {
+          "confidence": "100-104",
+          "training": 0,
+          "nonTraining": 0,
+          "total": 0
+        }
+      ],
+      "thresholds": [
+        {
+          "threshold": 50,
+          "accuracy": 20.27352402966387,
+          "truePositives": 2105,
+          "totalPredictions": 10383
+        },
+        {
+          "threshold": 51,
+          "accuracy": 20.18238300430905,
+          "truePositives": 2014,
+          "totalPredictions": 9979
+        },
+        {
+          "threshold": 52,
+          "accuracy": 20.164909717148525,
+          "truePositives": 1932,
+          "totalPredictions": 9581
+        },
+        {
+          "threshold": 53,
+          "accuracy": 20.31607629427793,
+          "truePositives": 1864,
+          "totalPredictions": 9175
+        },
+        {
+          "threshold": 54,
+          "accuracy": 20.458433116660967,
+          "truePositives": 1794,
+          "totalPredictions": 8769
+        },
+        {
+          "threshold": 55,
+          "accuracy": 20.39379474940334,
+          "truePositives": 1709,
+          "totalPredictions": 8380
+        },
+        {
+          "threshold": 56,
+          "accuracy": 20.341322625172545,
+          "truePositives": 1621,
+          "totalPredictions": 7969
+        },
+        {
+          "threshold": 57,
+          "accuracy": 20.387453874538743,
+          "truePositives": 1547,
+          "totalPredictions": 7588
+        },
+        {
+          "threshold": 58,
+          "accuracy": 20.340154867256636,
+          "truePositives": 1471,
+          "totalPredictions": 7232
+        },
+        {
+          "threshold": 59,
+          "accuracy": 20.44126241963764,
+          "truePositives": 1399,
+          "totalPredictions": 6844
+        },
+        {
+          "threshold": 60,
+          "accuracy": 20.391190512860003,
+          "truePositives": 1324,
+          "totalPredictions": 6493
+        },
+        {
+          "threshold": 61,
+          "accuracy": 20.189171559034573,
+          "truePositives": 1238,
+          "totalPredictions": 6132
+        },
+        {
+          "threshold": 62,
+          "accuracy": 20.4474505723205,
+          "truePositives": 1179,
+          "totalPredictions": 5766
+        },
+        {
+          "threshold": 63,
+          "accuracy": 20.619126589275844,
+          "truePositives": 1119,
+          "totalPredictions": 5427
+        },
+        {
+          "threshold": 64,
+          "accuracy": 20.70924764890282,
+          "truePositives": 1057,
+          "totalPredictions": 5104
+        },
+        {
+          "threshold": 65,
+          "accuracy": 20.74479276246581,
+          "truePositives": 986,
+          "totalPredictions": 4753
+        },
+        {
+          "threshold": 66,
+          "accuracy": 20.621090259159963,
+          "truePositives": 923,
+          "totalPredictions": 4476
+        },
+        {
+          "threshold": 67,
+          "accuracy": 20.66234701223902,
+          "truePositives": 861,
+          "totalPredictions": 4167
+        },
+        {
+          "threshold": 68,
+          "accuracy": 20.769826918109015,
+          "truePositives": 804,
+          "totalPredictions": 3871
+        },
+        {
+          "threshold": 69,
+          "accuracy": 20.925666199158485,
+          "truePositives": 746,
+          "totalPredictions": 3565
+        },
+        {
+          "threshold": 70,
+          "accuracy": 20.960434913923287,
+          "truePositives": 694,
+          "totalPredictions": 3311
+        },
+        {
+          "threshold": 71,
+          "accuracy": 21.19921363040629,
+          "truePositives": 647,
+          "totalPredictions": 3052
+        },
+        {
+          "threshold": 72,
+          "accuracy": 21.00570613409415,
+          "truePositives": 589,
+          "totalPredictions": 2804
+        },
+        {
+          "threshold": 73,
+          "accuracy": 20.72981366459627,
+          "truePositives": 534,
+          "totalPredictions": 2576
+        },
+        {
+          "threshold": 74,
+          "accuracy": 21.139240506329113,
+          "truePositives": 501,
+          "totalPredictions": 2370
+        },
+        {
+          "threshold": 75,
+          "accuracy": 21.0477515067223,
+          "truePositives": 454,
+          "totalPredictions": 2157
+        },
+        {
+          "threshold": 76,
+          "accuracy": 21.055301877219684,
+          "truePositives": 415,
+          "totalPredictions": 1971
+        },
+        {
+          "threshold": 77,
+          "accuracy": 20.93553907586994,
+          "truePositives": 367,
+          "totalPredictions": 1753
+        },
+        {
+          "threshold": 78,
+          "accuracy": 20.846493998736577,
+          "truePositives": 330,
+          "totalPredictions": 1583
+        },
+        {
+          "threshold": 79,
+          "accuracy": 20.845070422535212,
+          "truePositives": 296,
+          "totalPredictions": 1420
+        },
+        {
+          "threshold": 80,
+          "accuracy": 21.114599686028257,
+          "truePositives": 269,
+          "totalPredictions": 1274
+        },
+        {
+          "threshold": 81,
+          "accuracy": 21.79023508137432,
+          "truePositives": 241,
+          "totalPredictions": 1106
+        },
+        {
+          "threshold": 82,
+          "accuracy": 22.32415902140673,
+          "truePositives": 219,
+          "totalPredictions": 981
+        },
+        {
+          "threshold": 83,
+          "accuracy": 22.511848341232227,
+          "truePositives": 190,
+          "totalPredictions": 844
+        },
+        {
+          "threshold": 84,
+          "accuracy": 22.857142857142858,
+          "truePositives": 168,
+          "totalPredictions": 735
+        },
+        {
+          "threshold": 85,
+          "accuracy": 23.68,
+          "truePositives": 148,
+          "totalPredictions": 625
+        },
+        {
+          "threshold": 86,
+          "accuracy": 24.9063670411985,
+          "truePositives": 133,
+          "totalPredictions": 534
+        },
+        {
+          "threshold": 87,
+          "accuracy": 26.69683257918552,
+          "truePositives": 118,
+          "totalPredictions": 442
+        },
+        {
+          "threshold": 88,
+          "accuracy": 27.86885245901639,
+          "truePositives": 102,
+          "totalPredictions": 366
+        },
+        {
+          "threshold": 89,
+          "accuracy": 26.644736842105267,
+          "truePositives": 81,
+          "totalPredictions": 304
+        },
+        {
+          "threshold": 90,
+          "accuracy": 28.688524590163933,
+          "truePositives": 70,
+          "totalPredictions": 244
+        },
+        {
+          "threshold": 91,
+          "accuracy": 28.57142857142857,
+          "truePositives": 54,
+          "totalPredictions": 189
+        },
+        {
+          "threshold": 92,
+          "accuracy": 29.411764705882355,
+          "truePositives": 40,
+          "totalPredictions": 136
+        },
+        {
+          "threshold": 93,
+          "accuracy": 25.454545454545453,
+          "truePositives": 28,
+          "totalPredictions": 110
+        },
+        {
+          "threshold": 94,
+          "accuracy": 28.000000000000004,
+          "truePositives": 21,
+          "totalPredictions": 75
+        },
+        {
+          "threshold": 95,
+          "accuracy": 28.57142857142857,
+          "truePositives": 16,
+          "totalPredictions": 56
+        }
+      ],
+      "meanDifference": 0.5094510319014134
+    },
+    "0.2": {
+      "bins": [
+        {
+          "confidence": "0-4",
+          "training": 54,
+          "nonTraining": 232,
+          "total": 286
+        },
+        {
+          "confidence": "5-9",
+          "training": 204,
+          "nonTraining": 893,
+          "total": 1097
+        },
+        {
+          "confidence": "10-14",
+          "training": 374,
+          "nonTraining": 1428,
+          "total": 1802
+        },
+        {
+          "confidence": "15-19",
+          "training": 404,
+          "nonTraining": 1764,
+          "total": 2168
+        },
+        {
+          "confidence": "20-24",
+          "training": 399,
+          "nonTraining": 1589,
+          "total": 1988
+        },
+        {
+          "confidence": "25-29",
+          "training": 363,
+          "nonTraining": 1458,
+          "total": 1821
+        },
+        {
+          "confidence": "30-34",
+          "training": 359,
+          "nonTraining": 1360,
+          "total": 1719
+        },
+        {
+          "confidence": "35-39",
+          "training": 323,
+          "nonTraining": 1176,
+          "total": 1499
+        },
+        {
+          "confidence": "40-44",
+          "training": 253,
+          "nonTraining": 1024,
+          "total": 1277
+        },
+        {
+          "confidence": "45-49",
+          "training": 230,
+          "nonTraining": 940,
+          "total": 1170
+        },
+        {
+          "confidence": "50-54",
+          "training": 205,
+          "nonTraining": 799,
+          "total": 1004
+        },
+        {
+          "confidence": "55-59",
+          "training": 151,
+          "nonTraining": 693,
+          "total": 844
+        },
+        {
+          "confidence": "60-64",
+          "training": 133,
+          "nonTraining": 576,
+          "total": 709
+        },
+        {
+          "confidence": "65-69",
+          "training": 137,
+          "nonTraining": 512,
+          "total": 649
+        },
+        {
+          "confidence": "70-74",
+          "training": 128,
+          "nonTraining": 472,
+          "total": 600
+        },
+        {
+          "confidence": "75-79",
+          "training": 86,
+          "nonTraining": 379,
+          "total": 465
+        },
+        {
+          "confidence": "80-84",
+          "training": 86,
+          "nonTraining": 306,
+          "total": 392
+        },
+        {
+          "confidence": "85-89",
+          "training": 74,
+          "nonTraining": 223,
+          "total": 297
+        },
+        {
+          "confidence": "90-94",
+          "training": 24,
+          "nonTraining": 132,
+          "total": 156
+        },
+        {
+          "confidence": "95-99",
+          "training": 13,
+          "nonTraining": 44,
+          "total": 57
+        },
+        {
+          "confidence": "100-104",
+          "training": 0,
+          "nonTraining": 0,
+          "total": 0
+        }
+      ],
+      "thresholds": [
+        {
+          "threshold": 50,
+          "accuracy": 20.046394741929248,
+          "truePositives": 1037,
+          "totalPredictions": 5173
+        },
+        {
+          "threshold": 51,
+          "accuracy": 20.024174053182918,
+          "truePositives": 994,
+          "totalPredictions": 4964
+        },
+        {
+          "threshold": 52,
+          "accuracy": 20.104931794333684,
+          "truePositives": 958,
+          "totalPredictions": 4765
+        },
+        {
+          "threshold": 53,
+          "accuracy": 20.175438596491226,
+          "truePositives": 920,
+          "totalPredictions": 4560
+        },
+        {
+          "threshold": 54,
+          "accuracy": 19.9357650837348,
+          "truePositives": 869,
+          "totalPredictions": 4359
+        },
+        {
+          "threshold": 55,
+          "accuracy": 19.95682417846006,
+          "truePositives": 832,
+          "totalPredictions": 4169
+        },
+        {
+          "threshold": 56,
+          "accuracy": 20.060256088375596,
+          "truePositives": 799,
+          "totalPredictions": 3983
+        },
+        {
+          "threshold": 57,
+          "accuracy": 20.047231697717134,
+          "truePositives": 764,
+          "totalPredictions": 3811
+        },
+        {
+          "threshold": 58,
+          "accuracy": 20.121112028626477,
+          "truePositives": 731,
+          "totalPredictions": 3633
+        },
+        {
+          "threshold": 59,
+          "accuracy": 20.281124497991968,
+          "truePositives": 707,
+          "totalPredictions": 3486
+        },
+        {
+          "threshold": 60,
+          "accuracy": 20.481203007518797,
+          "truePositives": 681,
+          "totalPredictions": 3325
+        },
+        {
+          "threshold": 61,
+          "accuracy": 20.311012377023165,
+          "truePositives": 640,
+          "totalPredictions": 3151
+        },
+        {
+          "threshold": 62,
+          "accuracy": 20.357497517378352,
+          "truePositives": 615,
+          "totalPredictions": 3021
+        },
+        {
+          "threshold": 63,
+          "accuracy": 20.602493074792243,
+          "truePositives": 595,
+          "totalPredictions": 2888
+        },
+        {
+          "threshold": 64,
+          "accuracy": 20.801733477789817,
+          "truePositives": 576,
+          "totalPredictions": 2769
+        },
+        {
+          "threshold": 65,
+          "accuracy": 20.948012232415902,
+          "truePositives": 548,
+          "totalPredictions": 2616
+        },
+        {
+          "threshold": 66,
+          "accuracy": 20.68548387096774,
+          "truePositives": 513,
+          "totalPredictions": 2480
+        },
+        {
+          "threshold": 67,
+          "accuracy": 20.664678312739667,
+          "truePositives": 485,
+          "totalPredictions": 2347
+        },
+        {
+          "threshold": 68,
+          "accuracy": 20.714608774310268,
+          "truePositives": 458,
+          "totalPredictions": 2211
+        },
+        {
+          "threshold": 69,
+          "accuracy": 20.56567593480345,
+          "truePositives": 429,
+          "totalPredictions": 2086
+        },
+        {
+          "threshold": 70,
+          "accuracy": 20.894763599389936,
+          "truePositives": 411,
+          "totalPredictions": 1967
+        },
+        {
+          "threshold": 71,
+          "accuracy": 20.749592612710483,
+          "truePositives": 382,
+          "totalPredictions": 1841
+        },
+        {
+          "threshold": 72,
+          "accuracy": 20.75581395348837,
+          "truePositives": 357,
+          "totalPredictions": 1720
+        },
+        {
+          "threshold": 73,
+          "accuracy": 20.8125,
+          "truePositives": 333,
+          "totalPredictions": 1600
+        },
+        {
+          "threshold": 74,
+          "accuracy": 20.594193112761648,
+          "truePositives": 305,
+          "totalPredictions": 1481
+        },
+        {
+          "threshold": 75,
+          "accuracy": 20.702267739575714,
+          "truePositives": 283,
+          "totalPredictions": 1367
+        },
+        {
+          "threshold": 76,
+          "accuracy": 21.019108280254777,
+          "truePositives": 264,
+          "totalPredictions": 1256
+        },
+        {
+          "threshold": 77,
+          "accuracy": 21.00340136054422,
+          "truePositives": 247,
+          "totalPredictions": 1176
+        },
+        {
+          "threshold": 78,
+          "accuracy": 21.081576535288725,
+          "truePositives": 230,
+          "totalPredictions": 1091
+        },
+        {
+          "threshold": 79,
+          "accuracy": 21.62977867203219,
+          "truePositives": 215,
+          "totalPredictions": 994
+        },
+        {
+          "threshold": 80,
+          "accuracy": 21.840354767184035,
+          "truePositives": 197,
+          "totalPredictions": 902
+        },
+        {
+          "threshold": 81,
+          "accuracy": 21.701602959309493,
+          "truePositives": 176,
+          "totalPredictions": 811
+        },
+        {
+          "threshold": 82,
+          "accuracy": 21.265141318977122,
+          "truePositives": 158,
+          "totalPredictions": 743
+        },
+        {
+          "threshold": 83,
+          "accuracy": 21.88905547226387,
+          "truePositives": 146,
+          "totalPredictions": 667
+        },
+        {
+          "threshold": 84,
+          "accuracy": 22.203098106712567,
+          "truePositives": 129,
+          "totalPredictions": 581
+        },
+        {
+          "threshold": 85,
+          "accuracy": 21.764705882352942,
+          "truePositives": 111,
+          "totalPredictions": 510
+        },
+        {
+          "threshold": 86,
+          "accuracy": 20.568927789934357,
+          "truePositives": 94,
+          "totalPredictions": 457
+        },
+        {
+          "threshold": 87,
+          "accuracy": 21.31979695431472,
+          "truePositives": 84,
+          "totalPredictions": 394
+        },
+        {
+          "threshold": 88,
+          "accuracy": 20.54380664652568,
+          "truePositives": 68,
+          "totalPredictions": 331
+        },
+        {
+          "threshold": 89,
+          "accuracy": 19.11764705882353,
+          "truePositives": 52,
+          "totalPredictions": 272
+        },
+        {
+          "threshold": 90,
+          "accuracy": 17.370892018779344,
+          "truePositives": 37,
+          "totalPredictions": 213
+        },
+        {
+          "threshold": 91,
+          "accuracy": 17.045454545454543,
+          "truePositives": 30,
+          "totalPredictions": 176
+        },
+        {
+          "threshold": 92,
+          "accuracy": 17.93103448275862,
+          "truePositives": 26,
+          "totalPredictions": 145
+        },
+        {
+          "threshold": 93,
+          "accuracy": 19.090909090909093,
+          "truePositives": 21,
+          "totalPredictions": 110
+        },
+        {
+          "threshold": 94,
+          "accuracy": 21.951219512195124,
+          "truePositives": 18,
+          "totalPredictions": 82
+        },
+        {
+          "threshold": 95,
+          "accuracy": 22.807017543859647,
+          "truePositives": 13,
+          "totalPredictions": 57
+        }
+      ],
+      "meanDifference": 0.3473695772227501
+    },
+    "0.3": {
+      "bins": [
+        {
+          "confidence": "0-4",
+          "training": 1072,
+          "nonTraining": 4176,
+          "total": 5248
+        },
+        {
+          "confidence": "5-9",
+          "training": 464,
+          "nonTraining": 1925,
+          "total": 2389
+        },
+        {
+          "confidence": "10-14",
+          "training": 348,
+          "nonTraining": 1506,
+          "total": 1854
+        },
+        {
+          "confidence": "15-19",
+          "training": 310,
+          "nonTraining": 1198,
+          "total": 1508
+        },
+        {
+          "confidence": "20-24",
+          "training": 241,
+          "nonTraining": 944,
+          "total": 1185
+        },
+        {
+          "confidence": "25-29",
+          "training": 180,
+          "nonTraining": 745,
+          "total": 925
+        },
+        {
+          "confidence": "30-34",
+          "training": 158,
+          "nonTraining": 656,
+          "total": 814
+        },
+        {
+          "confidence": "35-39",
+          "training": 152,
+          "nonTraining": 577,
+          "total": 729
+        },
+        {
+          "confidence": "40-44",
+          "training": 116,
+          "nonTraining": 478,
+          "total": 594
+        },
+        {
+          "confidence": "45-49",
+          "training": 94,
+          "nonTraining": 390,
+          "total": 484
+        },
+        {
+          "confidence": "50-54",
+          "training": 86,
+          "nonTraining": 405,
+          "total": 491
+        },
+        {
+          "confidence": "55-59",
+          "training": 85,
+          "nonTraining": 341,
+          "total": 426
+        },
+        {
+          "confidence": "60-64",
+          "training": 81,
+          "nonTraining": 280,
+          "total": 361
+        },
+        {
+          "confidence": "65-69",
+          "training": 80,
+          "nonTraining": 271,
+          "total": 351
+        },
+        {
+          "confidence": "70-74",
+          "training": 83,
+          "nonTraining": 279,
+          "total": 362
+        },
+        {
+          "confidence": "75-79",
+          "training": 56,
+          "nonTraining": 242,
+          "total": 298
+        },
+        {
+          "confidence": "80-84",
+          "training": 65,
+          "nonTraining": 278,
+          "total": 343
+        },
+        {
+          "confidence": "85-89",
+          "training": 58,
+          "nonTraining": 274,
+          "total": 332
+        },
+        {
+          "confidence": "90-94",
+          "training": 99,
+          "nonTraining": 388,
+          "total": 487
+        },
+        {
+          "confidence": "95-99",
+          "training": 172,
+          "nonTraining": 647,
+          "total": 819
+        },
+        {
+          "confidence": "100-104",
+          "training": 0,
+          "nonTraining": 0,
+          "total": 0
+        }
+      ],
+      "thresholds": [
+        {
+          "threshold": 50,
+          "accuracy": 20.2576112412178,
+          "truePositives": 865,
+          "totalPredictions": 4270
+        },
+        {
+          "threshold": 51,
+          "accuracy": 20.33613445378151,
+          "truePositives": 847,
+          "totalPredictions": 4165
+        },
+        {
+          "threshold": 52,
+          "accuracy": 20.29021151008362,
+          "truePositives": 825,
+          "totalPredictions": 4066
+        },
+        {
+          "threshold": 53,
+          "accuracy": 20.37735849056604,
+          "truePositives": 810,
+          "totalPredictions": 3975
+        },
+        {
+          "threshold": 54,
+          "accuracy": 20.467986628953458,
+          "truePositives": 796,
+          "totalPredictions": 3889
+        },
+        {
+          "threshold": 55,
+          "accuracy": 20.613919026197404,
+          "truePositives": 779,
+          "totalPredictions": 3779
+        },
+        {
+          "threshold": 56,
+          "accuracy": 20.49335863377609,
+          "truePositives": 756,
+          "totalPredictions": 3689
+        },
+        {
+          "threshold": 57,
+          "accuracy": 20.700194498471795,
+          "truePositives": 745,
+          "totalPredictions": 3599
+        },
+        {
+          "threshold": 58,
+          "accuracy": 20.53545998291085,
+          "truePositives": 721,
+          "totalPredictions": 3511
+        },
+        {
+          "threshold": 59,
+          "accuracy": 20.589093030037912,
+          "truePositives": 706,
+          "totalPredictions": 3429
+        },
+        {
+          "threshold": 60,
+          "accuracy": 20.69788249328959,
+          "truePositives": 694,
+          "totalPredictions": 3353
+        },
+        {
+          "threshold": 61,
+          "accuracy": 20.700152207001523,
+          "truePositives": 680,
+          "totalPredictions": 3285
+        },
+        {
+          "threshold": 62,
+          "accuracy": 20.3986297103706,
+          "truePositives": 655,
+          "totalPredictions": 3211
+        },
+        {
+          "threshold": 63,
+          "accuracy": 20.27371101209421,
+          "truePositives": 637,
+          "totalPredictions": 3142
+        },
+        {
+          "threshold": 64,
+          "accuracy": 20.568999345977762,
+          "truePositives": 629,
+          "totalPredictions": 3058
+        },
+        {
+          "threshold": 65,
+          "accuracy": 20.487967914438503,
+          "truePositives": 613,
+          "totalPredictions": 2992
+        },
+        {
+          "threshold": 66,
+          "accuracy": 20.48563611491108,
+          "truePositives": 599,
+          "totalPredictions": 2924
+        },
+        {
+          "threshold": 67,
+          "accuracy": 20.427470217238962,
+          "truePositives": 583,
+          "totalPredictions": 2854
+        },
+        {
+          "threshold": 68,
+          "accuracy": 20.323741007194247,
+          "truePositives": 565,
+          "totalPredictions": 2780
+        },
+        {
+          "threshold": 69,
+          "accuracy": 20.273769885312614,
+          "truePositives": 548,
+          "totalPredictions": 2703
+        },
+        {
+          "threshold": 70,
+          "accuracy": 20.181749337372207,
+          "truePositives": 533,
+          "totalPredictions": 2641
+        },
+        {
+          "threshold": 71,
+          "accuracy": 20.031116297160636,
+          "truePositives": 515,
+          "totalPredictions": 2571
+        },
+        {
+          "threshold": 72,
+          "accuracy": 20.0,
+          "truePositives": 499,
+          "totalPredictions": 2495
+        },
+        {
+          "threshold": 73,
+          "accuracy": 20.165289256198346,
+          "truePositives": 488,
+          "totalPredictions": 2420
+        },
+        {
+          "threshold": 74,
+          "accuracy": 19.914712153518124,
+          "truePositives": 467,
+          "totalPredictions": 2345
+        },
+        {
+          "threshold": 75,
+          "accuracy": 19.74550241333918,
+          "truePositives": 450,
+          "totalPredictions": 2279
+        },
+        {
+          "threshold": 76,
+          "accuracy": 19.758064516129032,
+          "truePositives": 441,
+          "totalPredictions": 2232
+        },
+        {
+          "threshold": 77,
+          "accuracy": 19.751952227836473,
+          "truePositives": 430,
+          "totalPredictions": 2177
+        },
+        {
+          "threshold": 78,
+          "accuracy": 19.5375176970269,
+          "truePositives": 414,
+          "totalPredictions": 2119
+        },
+        {
+          "threshold": 79,
+          "accuracy": 19.678519240136385,
+          "truePositives": 404,
+          "totalPredictions": 2053
+        },
+        {
+          "threshold": 80,
+          "accuracy": 19.8889449772842,
+          "truePositives": 394,
+          "totalPredictions": 1981
+        },
+        {
+          "threshold": 81,
+          "accuracy": 20.23000522739153,
+          "truePositives": 387,
+          "totalPredictions": 1913
+        },
+        {
+          "threshold": 82,
+          "accuracy": 20.37940379403794,
+          "truePositives": 376,
+          "totalPredictions": 1845
+        },
+        {
+          "threshold": 83,
+          "accuracy": 20.328425821064553,
+          "truePositives": 359,
+          "totalPredictions": 1766
+        },
+        {
+          "threshold": 84,
+          "accuracy": 20.364920541494996,
+          "truePositives": 346,
+          "totalPredictions": 1699
+        },
+        {
+          "threshold": 85,
+          "accuracy": 20.085470085470085,
+          "truePositives": 329,
+          "totalPredictions": 1638
+        },
+        {
+          "threshold": 86,
+          "accuracy": 20.304568527918782,
+          "truePositives": 320,
+          "totalPredictions": 1576
+        },
+        {
+          "threshold": 87,
+          "accuracy": 20.511140235910876,
+          "truePositives": 313,
+          "totalPredictions": 1526
+        },
+        {
+          "threshold": 88,
+          "accuracy": 20.399724328049622,
+          "truePositives": 296,
+          "totalPredictions": 1451
+        },
+        {
+          "threshold": 89,
+          "accuracy": 20.41998551774077,
+          "truePositives": 282,
+          "totalPredictions": 1381
+        },
+        {
+          "threshold": 90,
+          "accuracy": 20.75038284839204,
+          "truePositives": 271,
+          "totalPredictions": 1306
+        },
+        {
+          "threshold": 91,
+          "accuracy": 21.009098428453267,
+          "truePositives": 254,
+          "totalPredictions": 1209
+        },
+        {
+          "threshold": 92,
+          "accuracy": 20.814880425155007,
+          "truePositives": 235,
+          "totalPredictions": 1129
+        },
+        {
+          "threshold": 93,
+          "accuracy": 20.55984555984556,
+          "truePositives": 213,
+          "totalPredictions": 1036
+        },
+        {
+          "threshold": 94,
+          "accuracy": 20.8110992529349,
+          "truePositives": 195,
+          "totalPredictions": 937
+        },
+        {
+          "threshold": 95,
+          "accuracy": 21.001221001221,
+          "truePositives": 172,
+          "totalPredictions": 819
+        }
+      ],
+      "meanDifference": 0.2079034522190959
+    },
+    "0.5": {
+      "bins": [
+        {
+          "confidence": "0-4",
+          "training": 1193,
+          "nonTraining": 4736,
+          "total": 5929
+        },
+        {
+          "confidence": "5-9",
+          "training": 422,
+          "nonTraining": 1680,
+          "total": 2102
+        },
+        {
+          "confidence": "10-14",
+          "training": 289,
+          "nonTraining": 1277,
+          "total": 1566
+        },
+        {
+          "confidence": "15-19",
+          "training": 245,
+          "nonTraining": 1015,
+          "total": 1260
+        },
+        {
+          "confidence": "20-24",
+          "training": 218,
+          "nonTraining": 783,
+          "total": 1001
+        },
+        {
+          "confidence": "25-29",
+          "training": 146,
+          "nonTraining": 664,
+          "total": 810
+        },
+        {
+          "confidence": "30-34",
+          "training": 150,
+          "nonTraining": 567,
+          "total": 717
+        },
+        {
+          "confidence": "35-39",
+          "training": 112,
+          "nonTraining": 564,
+          "total": 676
+        },
+        {
+          "confidence": "40-44",
+          "training": 94,
+          "nonTraining": 440,
+          "total": 534
+        },
+        {
+          "confidence": "45-49",
+          "training": 116,
+          "nonTraining": 390,
+          "total": 506
+        },
+        {
+          "confidence": "50-54",
+          "training": 105,
+          "nonTraining": 383,
+          "total": 488
+        },
+        {
+          "confidence": "55-59",
+          "training": 87,
+          "nonTraining": 319,
+          "total": 406
+        },
+        {
+          "confidence": "60-64",
+          "training": 86,
+          "nonTraining": 336,
+          "total": 422
+        },
+        {
+          "confidence": "65-69",
+          "training": 77,
+          "nonTraining": 320,
+          "total": 397
+        },
+        {
+          "confidence": "70-74",
+          "training": 89,
+          "nonTraining": 328,
+          "total": 417
+        },
+        {
+          "confidence": "75-79",
+          "training": 73,
+          "nonTraining": 310,
+          "total": 383
+        },
+        {
+          "confidence": "80-84",
+          "training": 97,
+          "nonTraining": 328,
+          "total": 425
+        },
+        {
+          "confidence": "85-89",
+          "training": 98,
+          "nonTraining": 368,
+          "total": 466
+        },
+        {
+          "confidence": "90-94",
+          "training": 106,
+          "nonTraining": 429,
+          "total": 535
+        },
+        {
+          "confidence": "95-99",
+          "training": 197,
+          "nonTraining": 763,
+          "total": 960
+        },
+        {
+          "confidence": "100-104",
+          "training": 0,
+          "nonTraining": 0,
+          "total": 0
+        }
+      ],
+      "thresholds": [
+        {
+          "threshold": 50,
+          "accuracy": 20.718513982445398,
+          "truePositives": 1015,
+          "totalPredictions": 4899
+        },
+        {
+          "threshold": 51,
+          "accuracy": 20.688216892596458,
+          "truePositives": 992,
+          "totalPredictions": 4795
+        },
+        {
+          "threshold": 52,
+          "accuracy": 20.5826068466936,
+          "truePositives": 968,
+          "totalPredictions": 4703
+        },
+        {
+          "threshold": 53,
+          "accuracy": 20.610521757956267,
+          "truePositives": 952,
+          "totalPredictions": 4619
+        },
+        {
+          "threshold": 54,
+          "accuracy": 20.54125998225377,
+          "truePositives": 926,
+          "totalPredictions": 4508
+        },
+        {
+          "threshold": 55,
+          "accuracy": 20.630242575379732,
+          "truePositives": 910,
+          "totalPredictions": 4411
+        },
+        {
+          "threshold": 56,
+          "accuracy": 20.66420664206642,
+          "truePositives": 896,
+          "totalPredictions": 4336
+        },
+        {
+          "threshold": 57,
+          "accuracy": 20.72135785007072,
+          "truePositives": 879,
+          "totalPredictions": 4242
+        },
+        {
+          "threshold": 58,
+          "accuracy": 20.62575210589651,
+          "truePositives": 857,
+          "totalPredictions": 4155
+        },
+        {
+          "threshold": 59,
+          "accuracy": 20.578147966682998,
+          "truePositives": 840,
+          "totalPredictions": 4082
+        },
+        {
+          "threshold": 60,
+          "accuracy": 20.549313358302122,
+          "truePositives": 823,
+          "totalPredictions": 4005
+        },
+        {
+          "threshold": 61,
+          "accuracy": 20.546894965499618,
+          "truePositives": 804,
+          "totalPredictions": 3913
+        },
+        {
+          "threshold": 62,
+          "accuracy": 20.560502881089576,
+          "truePositives": 785,
+          "totalPredictions": 3818
+        },
+        {
+          "threshold": 63,
+          "accuracy": 20.618831688450253,
+          "truePositives": 773,
+          "totalPredictions": 3749
+        },
+        {
+          "threshold": 64,
+          "accuracy": 20.573770491803277,
+          "truePositives": 753,
+          "totalPredictions": 3660
+        },
+        {
+          "threshold": 65,
+          "accuracy": 20.56935528886408,
+          "truePositives": 737,
+          "totalPredictions": 3583
+        },
+        {
+          "threshold": 66,
+          "accuracy": 20.525264059377676,
+          "truePositives": 719,
+          "totalPredictions": 3503
+        },
+        {
+          "threshold": 67,
+          "accuracy": 20.63538327018362,
+          "truePositives": 708,
+          "totalPredictions": 3431
+        },
+        {
+          "threshold": 68,
+          "accuracy": 20.644391408114558,
+          "truePositives": 692,
+          "totalPredictions": 3352
+        },
+        {
+          "threshold": 69,
+          "accuracy": 20.610687022900763,
+          "truePositives": 675,
+          "totalPredictions": 3275
+        },
+        {
+          "threshold": 70,
+          "accuracy": 20.715630885122412,
+          "truePositives": 660,
+          "totalPredictions": 3186
+        },
+        {
+          "threshold": 71,
+          "accuracy": 20.92873266688165,
+          "truePositives": 649,
+          "totalPredictions": 3101
+        },
+        {
+          "threshold": 72,
+          "accuracy": 21.01593625498008,
+          "truePositives": 633,
+          "totalPredictions": 3012
+        },
+        {
+          "threshold": 73,
+          "accuracy": 20.79646017699115,
+          "truePositives": 611,
+          "totalPredictions": 2938
+        },
+        {
+          "threshold": 74,
+          "accuracy": 20.77922077922078,
+          "truePositives": 592,
+          "totalPredictions": 2849
+        },
+        {
+          "threshold": 75,
+          "accuracy": 20.621162874684,
+          "truePositives": 571,
+          "totalPredictions": 2769
+        },
+        {
+          "threshold": 76,
+          "accuracy": 20.362828582006664,
+          "truePositives": 550,
+          "totalPredictions": 2701
+        },
+        {
+          "threshold": 77,
+          "accuracy": 20.266666666666666,
+          "truePositives": 532,
+          "totalPredictions": 2625
+        },
+        {
+          "threshold": 78,
+          "accuracy": 20.49373040752351,
+          "truePositives": 523,
+          "totalPredictions": 2552
+        },
+        {
+          "threshold": 79,
+          "accuracy": 20.75395216862586,
+          "truePositives": 512,
+          "totalPredictions": 2467
+        },
+        {
+          "threshold": 80,
+          "accuracy": 20.871751886001675,
+          "truePositives": 498,
+          "totalPredictions": 2386
+        },
+        {
+          "threshold": 81,
+          "accuracy": 20.68665797479357,
+          "truePositives": 476,
+          "totalPredictions": 2301
+        },
+        {
+          "threshold": 82,
+          "accuracy": 20.534904805077062,
+          "truePositives": 453,
+          "totalPredictions": 2206
+        },
+        {
+          "threshold": 83,
+          "accuracy": 20.160150730098916,
+          "truePositives": 428,
+          "totalPredictions": 2123
+        },
+        {
+          "threshold": 84,
+          "accuracy": 20.353114271701813,
+          "truePositives": 415,
+          "totalPredictions": 2039
+        },
+        {
+          "threshold": 85,
+          "accuracy": 20.44875063742988,
+          "truePositives": 401,
+          "totalPredictions": 1961
+        },
+        {
+          "threshold": 86,
+          "accuracy": 20.085698982324583,
+          "truePositives": 375,
+          "totalPredictions": 1867
+        },
+        {
+          "threshold": 87,
+          "accuracy": 19.864559819413092,
+          "truePositives": 352,
+          "totalPredictions": 1772
+        },
+        {
+          "threshold": 88,
+          "accuracy": 20.058997050147493,
+          "truePositives": 340,
+          "totalPredictions": 1695
+        },
+        {
+          "threshold": 89,
+          "accuracy": 20.28894472361809,
+          "truePositives": 323,
+          "totalPredictions": 1592
+        },
+        {
+          "threshold": 90,
+          "accuracy": 20.267558528428093,
+          "truePositives": 303,
+          "totalPredictions": 1495
+        },
+        {
+          "threshold": 91,
+          "accuracy": 20.729092208720516,
+          "truePositives": 290,
+          "totalPredictions": 1399
+        },
+        {
+          "threshold": 92,
+          "accuracy": 20.679012345679013,
+          "truePositives": 268,
+          "totalPredictions": 1296
+        },
+        {
+          "threshold": 93,
+          "accuracy": 20.286195286195287,
+          "truePositives": 241,
+          "totalPredictions": 1188
+        },
+        {
+          "threshold": 94,
+          "accuracy": 20.165745856353592,
+          "truePositives": 219,
+          "totalPredictions": 1086
+        },
+        {
+          "threshold": 95,
+          "accuracy": 20.520833333333332,
+          "truePositives": 197,
+          "totalPredictions": 960
+        }
+      ],
+      "meanDifference": 0.5032559351714383
+    },
+    "0.7": {
+      "bins": [
+        {
+          "confidence": "0-4",
+          "training": 1171,
+          "nonTraining": 4569,
+          "total": 5740
+        },
+        {
+          "confidence": "5-9",
+          "training": 428,
+          "nonTraining": 1784,
+          "total": 2212
+        },
+        {
+          "confidence": "10-14",
+          "training": 329,
+          "nonTraining": 1307,
+          "total": 1636
+        },
+        {
+          "confidence": "15-19",
+          "training": 257,
+          "nonTraining": 992,
+          "total": 1249
+        },
+        {
+          "confidence": "20-24",
+          "training": 199,
+          "nonTraining": 827,
+          "total": 1026
+        },
+        {
+          "confidence": "25-29",
+          "training": 170,
+          "nonTraining": 707,
+          "total": 877
+        },
+        {
+          "confidence": "30-34",
+          "training": 126,
+          "nonTraining": 582,
+          "total": 708
+        },
+        {
+          "confidence": "35-39",
+          "training": 114,
+          "nonTraining": 544,
+          "total": 658
+        },
+        {
+          "confidence": "40-44",
+          "training": 124,
+          "nonTraining": 474,
+          "total": 598
+        },
+        {
+          "confidence": "45-49",
+          "training": 104,
+          "nonTraining": 441,
+          "total": 545
+        },
+        {
+          "confidence": "50-54",
+          "training": 113,
+          "nonTraining": 362,
+          "total": 475
+        },
+        {
+          "confidence": "55-59",
+          "training": 102,
+          "nonTraining": 336,
+          "total": 438
+        },
+        {
+          "confidence": "60-64",
+          "training": 70,
+          "nonTraining": 330,
+          "total": 400
+        },
+        {
+          "confidence": "65-69",
+          "training": 73,
+          "nonTraining": 312,
+          "total": 385
+        },
+        {
+          "confidence": "70-74",
+          "training": 81,
+          "nonTraining": 301,
+          "total": 382
+        },
+        {
+          "confidence": "75-79",
+          "training": 86,
+          "nonTraining": 337,
+          "total": 423
+        },
+        {
+          "confidence": "80-84",
+          "training": 77,
+          "nonTraining": 351,
+          "total": 428
+        },
+        {
+          "confidence": "85-89",
+          "training": 84,
+          "nonTraining": 331,
+          "total": 415
+        },
+        {
+          "confidence": "90-94",
+          "training": 120,
+          "nonTraining": 448,
+          "total": 568
+        },
+        {
+          "confidence": "95-99",
+          "training": 172,
+          "nonTraining": 665,
+          "total": 837
+        },
+        {
+          "confidence": "100-104",
+          "training": 0,
+          "nonTraining": 0,
+          "total": 0
+        }
+      ],
+      "thresholds": [
+        {
+          "threshold": 50,
+          "accuracy": 20.58513997053252,
+          "truePositives": 978,
+          "totalPredictions": 4751
+        },
+        {
+          "threshold": 51,
+          "accuracy": 20.626743936467054,
+          "truePositives": 961,
+          "totalPredictions": 4659
+        },
+        {
+          "threshold": 52,
+          "accuracy": 20.42562527424309,
+          "truePositives": 931,
+          "totalPredictions": 4558
+        },
+        {
+          "threshold": 53,
+          "accuracy": 20.364536453645364,
+          "truePositives": 905,
+          "totalPredictions": 4444
+        },
+        {
+          "threshold": 54,
+          "accuracy": 20.2851885924563,
+          "truePositives": 882,
+          "totalPredictions": 4348
+        },
+        {
+          "threshold": 55,
+          "accuracy": 20.229186155285316,
+          "truePositives": 865,
+          "totalPredictions": 4276
+        },
+        {
+          "threshold": 56,
+          "accuracy": 20.22498803255146,
+          "truePositives": 845,
+          "totalPredictions": 4178
+        },
+        {
+          "threshold": 57,
+          "accuracy": 20.229380185456318,
+          "truePositives": 829,
+          "totalPredictions": 4098
+        },
+        {
+          "threshold": 58,
+          "accuracy": 20.24937655860349,
+          "truePositives": 812,
+          "totalPredictions": 4010
+        },
+        {
+          "threshold": 59,
+          "accuracy": 20.178343949044585,
+          "truePositives": 792,
+          "totalPredictions": 3925
+        },
+        {
+          "threshold": 60,
+          "accuracy": 19.880145909327776,
+          "truePositives": 763,
+          "totalPredictions": 3838
+        },
+        {
+          "threshold": 61,
+          "accuracy": 19.925313416911177,
+          "truePositives": 747,
+          "totalPredictions": 3749
+        },
+        {
+          "threshold": 62,
+          "accuracy": 20.163710777626193,
+          "truePositives": 739,
+          "totalPredictions": 3665
+        },
+        {
+          "threshold": 63,
+          "accuracy": 20.256338813039847,
+          "truePositives": 727,
+          "totalPredictions": 3589
+        },
+        {
+          "threshold": 64,
+          "accuracy": 20.159453302961275,
+          "truePositives": 708,
+          "totalPredictions": 3512
+        },
+        {
+          "threshold": 65,
+          "accuracy": 20.157068062827225,
+          "truePositives": 693,
+          "totalPredictions": 3438
+        },
+        {
+          "threshold": 66,
+          "accuracy": 20.220369267421084,
+          "truePositives": 679,
+          "totalPredictions": 3358
+        },
+        {
+          "threshold": 67,
+          "accuracy": 20.207570207570207,
+          "truePositives": 662,
+          "totalPredictions": 3276
+        },
+        {
+          "threshold": 68,
+          "accuracy": 20.194113963681904,
+          "truePositives": 645,
+          "totalPredictions": 3194
+        },
+        {
+          "threshold": 69,
+          "accuracy": 20.178799489144318,
+          "truePositives": 632,
+          "totalPredictions": 3132
+        },
+        {
+          "threshold": 70,
+          "accuracy": 20.30789387487717,
+          "truePositives": 620,
+          "totalPredictions": 3053
+        },
+        {
+          "threshold": 71,
+          "accuracy": 20.396505376344088,
+          "truePositives": 607,
+          "totalPredictions": 2976
+        },
+        {
+          "threshold": 72,
+          "accuracy": 20.52251632863527,
+          "truePositives": 597,
+          "totalPredictions": 2909
+        },
+        {
+          "threshold": 73,
+          "accuracy": 20.162716660771135,
+          "truePositives": 570,
+          "totalPredictions": 2827
+        },
+        {
+          "threshold": 74,
+          "accuracy": 20.39329934450109,
+          "truePositives": 560,
+          "totalPredictions": 2746
+        },
+        {
+          "threshold": 75,
+          "accuracy": 20.17970797454137,
+          "truePositives": 539,
+          "totalPredictions": 2671
+        },
+        {
+          "threshold": 76,
+          "accuracy": 20.12288786482335,
+          "truePositives": 524,
+          "totalPredictions": 2604
+        },
+        {
+          "threshold": 77,
+          "accuracy": 20.12779552715655,
+          "truePositives": 504,
+          "totalPredictions": 2504
+        },
+        {
+          "threshold": 78,
+          "accuracy": 19.834710743801654,
+          "truePositives": 480,
+          "totalPredictions": 2420
+        },
+        {
+          "threshold": 79,
+          "accuracy": 20.085653104925054,
+          "truePositives": 469,
+          "totalPredictions": 2335
+        },
+        {
+          "threshold": 80,
+          "accuracy": 20.151245551601424,
+          "truePositives": 453,
+          "totalPredictions": 2248
+        },
+        {
+          "threshold": 81,
+          "accuracy": 20.34132841328413,
+          "truePositives": 441,
+          "totalPredictions": 2168
+        },
+        {
+          "threshold": 82,
+          "accuracy": 20.37392138063279,
+          "truePositives": 425,
+          "totalPredictions": 2086
+        },
+        {
+          "threshold": 83,
+          "accuracy": 20.45,
+          "truePositives": 409,
+          "totalPredictions": 2000
+        },
+        {
+          "threshold": 84,
+          "accuracy": 20.39957939011567,
+          "truePositives": 388,
+          "totalPredictions": 1902
+        },
+        {
+          "threshold": 85,
+          "accuracy": 20.659340659340657,
+          "truePositives": 376,
+          "totalPredictions": 1820
+        },
+        {
+          "threshold": 86,
+          "accuracy": 20.871559633027523,
+          "truePositives": 364,
+          "totalPredictions": 1744
+        },
+        {
+          "threshold": 87,
+          "accuracy": 20.878459687123947,
+          "truePositives": 347,
+          "totalPredictions": 1662
+        },
+        {
+          "threshold": 88,
+          "accuracy": 20.97902097902098,
+          "truePositives": 330,
+          "totalPredictions": 1573
+        },
+        {
+          "threshold": 89,
+          "accuracy": 21.183591123066577,
+          "truePositives": 315,
+          "totalPredictions": 1487
+        },
+        {
+          "threshold": 90,
+          "accuracy": 20.78291814946619,
+          "truePositives": 292,
+          "totalPredictions": 1405
+        },
+        {
+          "threshold": 91,
+          "accuracy": 20.9140201394268,
+          "truePositives": 270,
+          "totalPredictions": 1291
+        },
+        {
+          "threshold": 92,
+          "accuracy": 20.973154362416107,
+          "truePositives": 250,
+          "totalPredictions": 1192
+        },
+        {
+          "threshold": 93,
+          "accuracy": 21.192660550458715,
+          "truePositives": 231,
+          "totalPredictions": 1090
+        },
+        {
+          "threshold": 94,
+          "accuracy": 21.196222455403987,
+          "truePositives": 202,
+          "totalPredictions": 953
+        },
+        {
+          "threshold": 95,
+          "accuracy": 20.54958183990442,
+          "truePositives": 172,
+          "totalPredictions": 837
+        }
+      ],
+      "meanDifference": 0.12238360772181522
+    },
+    "1.0": {
+      "bins": [
+        {
+          "confidence": "0-4",
+          "training": 1156,
+          "nonTraining": 4673,
+          "total": 5829
+        },
+        {
+          "confidence": "5-9",
+          "training": 483,
+          "nonTraining": 1884,
+          "total": 2367
+        },
+        {
+          "confidence": "10-14",
+          "training": 305,
+          "nonTraining": 1236,
+          "total": 1541
+        },
+        {
+          "confidence": "15-19",
+          "training": 227,
+          "nonTraining": 998,
+          "total": 1225
+        },
+        {
+          "confidence": "20-24",
+          "training": 181,
+          "nonTraining": 837,
+          "total": 1018
+        },
+        {
+          "confidence": "25-29",
+          "training": 160,
+          "nonTraining": 669,
+          "total": 829
+        },
+        {
+          "confidence": "30-34",
+          "training": 164,
+          "nonTraining": 554,
+          "total": 718
+        },
+        {
+          "confidence": "35-39",
+          "training": 135,
+          "nonTraining": 493,
+          "total": 628
+        },
+        {
+          "confidence": "40-44",
+          "training": 119,
+          "nonTraining": 399,
+          "total": 518
+        },
+        {
+          "confidence": "45-49",
+          "training": 94,
+          "nonTraining": 402,
+          "total": 496
+        },
+        {
+          "confidence": "50-54",
+          "training": 102,
+          "nonTraining": 366,
+          "total": 468
+        },
+        {
+          "confidence": "55-59",
+          "training": 79,
+          "nonTraining": 329,
+          "total": 408
+        },
+        {
+          "confidence": "60-64",
+          "training": 94,
+          "nonTraining": 336,
+          "total": 430
+        },
+        {
+          "confidence": "65-69",
+          "training": 69,
+          "nonTraining": 345,
+          "total": 414
+        },
+        {
+          "confidence": "70-74",
+          "training": 99,
+          "nonTraining": 317,
+          "total": 416
+        },
+        {
+          "confidence": "75-79",
+          "training": 68,
+          "nonTraining": 333,
+          "total": 401
+        },
+        {
+          "confidence": "80-84",
+          "training": 84,
+          "nonTraining": 322,
+          "total": 406
+        },
+        {
+          "confidence": "85-89",
+          "training": 87,
+          "nonTraining": 349,
+          "total": 436
+        },
+        {
+          "confidence": "90-94",
+          "training": 122,
+          "nonTraining": 446,
+          "total": 568
+        },
+        {
+          "confidence": "95-99",
+          "training": 172,
+          "nonTraining": 712,
+          "total": 884
+        },
+        {
+          "confidence": "100-104",
+          "training": 0,
+          "nonTraining": 0,
+          "total": 0
+        }
+      ],
+      "thresholds": [
+        {
+          "threshold": 50,
+          "accuracy": 20.202856551438625,
+          "truePositives": 976,
+          "totalPredictions": 4831
+        },
+        {
+          "threshold": 51,
+          "accuracy": 20.14358108108108,
+          "truePositives": 954,
+          "totalPredictions": 4736
+        },
+        {
+          "threshold": 52,
+          "accuracy": 20.12102874432678,
+          "truePositives": 931,
+          "totalPredictions": 4627
+        },
+        {
+          "threshold": 53,
+          "accuracy": 20.25121198765976,
+          "truePositives": 919,
+          "totalPredictions": 4538
+        },
+        {
+          "threshold": 54,
+          "accuracy": 20.103208436167826,
+          "truePositives": 896,
+          "totalPredictions": 4457
+        },
+        {
+          "threshold": 55,
+          "accuracy": 20.032088012835207,
+          "truePositives": 874,
+          "totalPredictions": 4363
+        },
+        {
+          "threshold": 56,
+          "accuracy": 20.01868722261154,
+          "truePositives": 857,
+          "totalPredictions": 4281
+        },
+        {
+          "threshold": 57,
+          "accuracy": 20.14336917562724,
+          "truePositives": 843,
+          "totalPredictions": 4185
+        },
+        {
+          "threshold": 58,
+          "accuracy": 20.14125669751583,
+          "truePositives": 827,
+          "totalPredictions": 4106
+        },
+        {
+          "threshold": 59,
+          "accuracy": 20.104244229337304,
+          "truePositives": 810,
+          "totalPredictions": 4029
+        },
+        {
+          "threshold": 60,
+          "accuracy": 20.101137800252843,
+          "truePositives": 795,
+          "totalPredictions": 3955
+        },
+        {
+          "threshold": 61,
+          "accuracy": 19.989642672190573,
+          "truePositives": 772,
+          "totalPredictions": 3862
+        },
+        {
+          "threshold": 62,
+          "accuracy": 19.898909284384146,
+          "truePositives": 748,
+          "totalPredictions": 3759
+        },
+        {
+          "threshold": 63,
+          "accuracy": 19.891156462585034,
+          "truePositives": 731,
+          "totalPredictions": 3675
+        },
+        {
+          "threshold": 64,
+          "accuracy": 19.88320355951057,
+          "truePositives": 715,
+          "totalPredictions": 3596
+        },
+        {
+          "threshold": 65,
+          "accuracy": 19.886524822695034,
+          "truePositives": 701,
+          "totalPredictions": 3525
+        },
+        {
+          "threshold": 66,
+          "accuracy": 20.011584129742253,
+          "truePositives": 691,
+          "totalPredictions": 3453
+        },
+        {
+          "threshold": 67,
+          "accuracy": 20.219714964370546,
+          "truePositives": 681,
+          "totalPredictions": 3368
+        },
+        {
+          "threshold": 68,
+          "accuracy": 20.18348623853211,
+          "truePositives": 660,
+          "totalPredictions": 3270
+        },
+        {
+          "threshold": 69,
+          "accuracy": 20.313479623824453,
+          "truePositives": 648,
+          "totalPredictions": 3190
+        },
+        {
+          "threshold": 70,
+          "accuracy": 20.3150112504018,
+          "truePositives": 632,
+          "totalPredictions": 3111
+        },
+        {
+          "threshold": 71,
+          "accuracy": 20.28317418505104,
+          "truePositives": 616,
+          "totalPredictions": 3037
+        },
+        {
+          "threshold": 72,
+          "accuracy": 20.20236087689713,
+          "truePositives": 599,
+          "totalPredictions": 2965
+        },
+        {
+          "threshold": 73,
+          "accuracy": 20.15235457063712,
+          "truePositives": 582,
+          "totalPredictions": 2888
+        },
+        {
+          "threshold": 74,
+          "accuracy": 20.014321518080916,
+          "truePositives": 559,
+          "totalPredictions": 2793
+        },
+        {
+          "threshold": 75,
+          "accuracy": 19.777365491651206,
+          "truePositives": 533,
+          "totalPredictions": 2695
+        },
+        {
+          "threshold": 76,
+          "accuracy": 19.908466819221967,
+          "truePositives": 522,
+          "totalPredictions": 2622
+        },
+        {
+          "threshold": 77,
+          "accuracy": 19.905771495877502,
+          "truePositives": 507,
+          "totalPredictions": 2547
+        },
+        {
+          "threshold": 78,
+          "accuracy": 19.99187322226737,
+          "truePositives": 492,
+          "totalPredictions": 2461
+        },
+        {
+          "threshold": 79,
+          "accuracy": 20.167714884696018,
+          "truePositives": 481,
+          "totalPredictions": 2385
+        },
+        {
+          "threshold": 80,
+          "accuracy": 20.27027027027027,
+          "truePositives": 465,
+          "totalPredictions": 2294
+        },
+        {
+          "threshold": 81,
+          "accuracy": 20.0,
+          "truePositives": 445,
+          "totalPredictions": 2225
+        },
+        {
+          "threshold": 82,
+          "accuracy": 20.009350163627865,
+          "truePositives": 428,
+          "totalPredictions": 2139
+        },
+        {
+          "threshold": 83,
+          "accuracy": 20.087124878993222,
+          "truePositives": 415,
+          "totalPredictions": 2066
+        },
+        {
+          "threshold": 84,
+          "accuracy": 20.332996972754795,
+          "truePositives": 403,
+          "totalPredictions": 1982
+        },
+        {
+          "threshold": 85,
+          "accuracy": 20.18008474576271,
+          "truePositives": 381,
+          "totalPredictions": 1888
+        },
+        {
+          "threshold": 86,
+          "accuracy": 19.87750556792873,
+          "truePositives": 357,
+          "totalPredictions": 1796
+        },
+        {
+          "threshold": 87,
+          "accuracy": 19.825581395348838,
+          "truePositives": 341,
+          "totalPredictions": 1720
+        },
+        {
+          "threshold": 88,
+          "accuracy": 19.767441860465116,
+          "truePositives": 323,
+          "totalPredictions": 1634
+        },
+        {
+          "threshold": 89,
+          "accuracy": 20.01291155584248,
+          "truePositives": 310,
+          "totalPredictions": 1549
+        },
+        {
+          "threshold": 90,
+          "accuracy": 20.24793388429752,
+          "truePositives": 294,
+          "totalPredictions": 1452
+        },
+        {
+          "threshold": 91,
+          "accuracy": 20.149253731343283,
+          "truePositives": 270,
+          "totalPredictions": 1340
+        },
+        {
+          "threshold": 92,
+          "accuracy": 20.244897959183675,
+          "truePositives": 248,
+          "totalPredictions": 1225
+        },
+        {
+          "threshold": 93,
+          "accuracy": 19.782214156079856,
+          "truePositives": 218,
+          "totalPredictions": 1102
+        },
+        {
+          "threshold": 94,
+          "accuracy": 20.08113590263692,
+          "truePositives": 198,
+          "totalPredictions": 986
+        },
+        {
+          "threshold": 95,
+          "accuracy": 19.457013574660635,
+          "truePositives": 172,
+          "totalPredictions": 884
+        }
+      ],
+      "meanDifference": 0.30561468851662
+    }
+  },
+  "tradeoffData": [
+    {
+      "epsilon": 0.1,
+      "accuracy": 63.0,
+      "privacy": 50.0
+    },
+    {
+      "epsilon": 0.2,
+      "accuracy": 66.0,
+      "privacy": 65.9074616135068
+    },
+    {
+      "epsilon": 0.3,
+      "accuracy": 69.0,
+      "privacy": 79.59534487120949
+    },
+    {
+      "epsilon": 0.5,
+      "accuracy": 75.0,
+      "privacy": 50.60801689878351
+    },
+    {
+      "epsilon": 0.7,
+      "accuracy": 81.0,
+      "privacy": 87.9886780025702
+    },
+    {
+      "epsilon": 1.0,
+      "accuracy": 90.0,
+      "privacy": 70.00548930326231
+    }
+  ]
+}
